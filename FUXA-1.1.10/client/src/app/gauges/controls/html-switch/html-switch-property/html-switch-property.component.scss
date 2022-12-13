@@ -1,0 +1,26 @@
+
+.field-row {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.slider-field span {
+    padding-left: 2px;
+    text-overflow: clip;
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.slider-field mat-slider {
+    background-color: var(--formSliderBackground);
+    height: 29px;
+}
+
+.slider-small > .mat-slider-horizontal {
+    min-width: 80px;
+}
+
+::ng-deep .mat-tab-label {
+    height: 34px !important;
+}
