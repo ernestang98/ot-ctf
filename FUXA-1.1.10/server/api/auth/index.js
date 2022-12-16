@@ -70,6 +70,11 @@ module.exports = {
             });
         });
 
+        authApp.post('/api/signout', function (req, res, next) {
+            res.clearCookie('session_id', { maxAge: 900000, httpOnly: true });
+            res.json({ status: 'success', message: 'signing out!!!' })
+        });
+
         return authApp;
     }
 }
