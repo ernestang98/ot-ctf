@@ -6,10 +6,15 @@ var express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authJwt = require('../jwt-helper');
+const crypto = require('crypto');
 
 var runtime;
 var secretCode;
 var tokenExpiresIn;
+
+const authenticated_hash = crypto.createHash('md5').update("authenticated").digest('hex');
+const user_hash = crypto.createHash('sha1').update("user").digest('hex');
+const admin_hash = crypto.createHash('sha1').update("admin").digest('hex');
 
 module.exports = {
     init: function (_runtime, _secretCode, _tokenExpires) {
@@ -36,6 +41,15 @@ module.exports = {
                 if (userInfo && userInfo.length && userInfo[0].password) {
                     if (bcrypt.compareSync(req.body.password, userInfo[0].password)) {
                         const token = jwt.sign({ id: userInfo[0].username, groups: userInfo[0].groups }, secretCode, { algorithm: 'HS256', expiresIn: tokenExpiresIn });//'1h' });
+                        
+                        var hash = ""
+                        if (userInfo[0].groups == -1) {
+                            hash = `${admin_hash}.${authenticated_hash}`
+                        } else {
+                            hash = `${user_hash}.${authenticated_hash}`
+                        }
+                        res.cookie('session_id', hash, { maxAge: 900000, httpOnly: true });
+
                         res.json({ status: 'success', message: 'user found!!!', data: { username: userInfo[0].username, fullname: userInfo[0].fullname, groups: userInfo[0].groups , token: token } });
                         runtime.logger.info('api-signin: ' + userInfo[0].username + ' ' + userInfo[0].fullname + ' ' + userInfo[0].groups);
                     } else {

@@ -6,6 +6,8 @@ import { User, UserGroups } from '../_models/user';
 import { environment } from '../../environments/environment';
 import { EndPointApi } from '../_helpers/endpointapi';
 
+const COOKIE_SESSION_ID = "session_id"
+
 @Injectable()
 export class AuthService {
 
@@ -42,6 +44,7 @@ export class AuthService {
 
 	signOut() {
 		this.removeUser();
+		window.sessionStorage.removeItem(COOKIE_SESSION_ID);
 	}
 
 	getUser(): User {
