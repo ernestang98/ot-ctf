@@ -44,20 +44,15 @@ export class AuthService {
 
 	signOut() {
 		this.removeUser();
-		return new Observable((observer) => {
-			if (environment.serverEnabled) {
-				let header = new HttpHeaders({ 'Content-Type': 'application/json' });
-				return this.http.post(this.endPointConfig + '/api/signout', { }).subscribe((result: any) => {
-					console.log(result)
-					observer.next();
-				}, err => {
-					console.error(err);
-					observer.error(err);
-				});
-			} else {
-				observer.next();
-			}
-		});
+		if (environment.serverEnabled) {
+			let header = new HttpHeaders({ 'Content-Type': 'application/json' });
+			this.http.post(this.endPointConfig + '/api/signout', { }).subscribe((result: any) => {
+				console.log(result)
+			}, err => {
+				console.error(err);
+			});
+		} else {
+		}
 	}
 
 	getUser(): User {

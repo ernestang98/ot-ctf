@@ -21444,21 +21444,16 @@ let AuthService = class AuthService {
     }
     signOut() {
         this.removeUser();
-        return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((observer) => {
-            if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].serverEnabled) {
-                let header = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' });
-                return this.http.post(this.endPointConfig + '/api/signout', {}).subscribe((result) => {
-                    console.log(result);
-                    observer.next();
-                }, err => {
-                    console.error(err);
-                    observer.error(err);
-                });
-            }
-            else {
-                observer.next();
-            }
-        });
+        if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].serverEnabled) {
+            let header = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' });
+            this.http.post(this.endPointConfig + '/api/signout', {}).subscribe((result) => {
+                console.log(result);
+            }, err => {
+                console.error(err);
+            });
+        }
+        else {
+        }
     }
     getUser() {
         return this.currentUser;

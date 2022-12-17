@@ -43,12 +43,15 @@ module.exports = {
                         const token = jwt.sign({ id: userInfo[0].username, groups: userInfo[0].groups }, secretCode, { algorithm: 'HS256', expiresIn: tokenExpiresIn });//'1h' });
                         
                         var hash = ""
-                        if (userInfo[0].groups == -1) {
+                        if (userInfo[0].groups === -1) {
                             hash = `${admin_hash}.${authenticated_hash}`
                         } else {
                             hash = `${user_hash}.${authenticated_hash}`
                         }
+                        
                         res.cookie('session_id', hash, { maxAge: 900000, httpOnly: true });
+                        res.cookie('user_privileges', userInfo[0].groups, { maxAge: 900000, httpOnly: true });
+                        res.cookie('user_id', userInfo[0].username, { maxAge: 900000, httpOnly: true });
 
                         res.json({ status: 'success', message: 'user found!!!', data: { username: userInfo[0].username, fullname: userInfo[0].fullname, groups: userInfo[0].groups , token: token } });
                         runtime.logger.info('api-signin: ' + userInfo[0].username + ' ' + userInfo[0].fullname + ' ' + userInfo[0].groups);
@@ -72,6 +75,8 @@ module.exports = {
 
         authApp.post('/api/signout', function (req, res, next) {
             res.clearCookie('session_id', { maxAge: 900000, httpOnly: true });
+            res.clearCookie('user_privileges', { maxAge: 900000, httpOnly: true });
+            res.clearCookie('user_id', { maxAge: 900000, httpOnly: true });
             res.json({ status: 'success', message: 'signing out!!!' })
         });
 

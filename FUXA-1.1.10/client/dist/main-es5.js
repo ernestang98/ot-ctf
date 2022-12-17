@@ -26172,24 +26172,17 @@
         }, {
           key: "signOut",
           value: function signOut() {
-            var _this151 = this;
             this.removeUser();
-            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-              if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].serverEnabled) {
-                var header = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-                  'Content-Type': 'application/json'
-                });
-                return _this151.http.post(_this151.endPointConfig + '/api/signout', {}).subscribe(function (result) {
-                  console.log(result);
-                  observer.next();
-                }, function (err) {
-                  console.error(err);
-                  observer.error(err);
-                });
-              } else {
-                observer.next();
-              }
-            });
+            if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].serverEnabled) {
+              var header = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+              });
+              this.http.post(this.endPointConfig + '/api/signout', {}).subscribe(function (result) {
+                console.log(result);
+              }, function (err) {
+                console.error(err);
+              });
+            } else {}
           }
         }, {
           key: "getUser",
@@ -26346,13 +26339,13 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this152 = this;
+            var _this151 = this;
             this.templateElem = this.vcr.element.nativeElement;
             this.lazyForContainer = this.templateElem.parentElement;
             //Adding an event listener will trigger ngDoCheck whenever the event fires so we don't actually need to call
             //update here.
             this.lazyForContainer.addEventListener('scroll', function () {
-              _this152.lastChangeTriggeredByScroll = true;
+              _this151.lastChangeTriggeredByScroll = true;
             });
             this.initialized = true;
           }
@@ -26592,17 +26585,17 @@
         _createClass(ReportItemChartComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this153 = this;
+            var _this152 = this;
             Object.keys(this.dateRangeType).forEach(function (key) {
-              _this153.translateService.get(_this153.dateRangeType[key]).subscribe(function (txt) {
-                _this153.dateRangeType[key] = txt;
+              _this152.translateService.get(_this152.dateRangeType[key]).subscribe(function (txt) {
+                _this152.dateRangeType[key] = txt;
               });
             });
             this.loadChart();
             var chart = null;
             if (this.data.chart) {
               chart = this.charts.find(function (chart) {
-                return chart.id === _this153.data.chart.id;
+                return chart.id === _this152.data.chart.id;
               });
             }
             this.chartCtrl.setValue(chart);
@@ -26639,12 +26632,12 @@
         }, {
           key: "loadChart",
           value: function loadChart(toset) {
-            var _this154 = this;
+            var _this153 = this;
             // load the initial chart list
             this.filteredChart.next(this.charts.slice());
             // listen for search field value changes
             this.chartFilterCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this._onDestroy)).subscribe(function () {
-              _this154.filterChart();
+              _this153.filterChart();
             });
             if (toset) {
               var idx = -1;
@@ -26908,17 +26901,17 @@
         }, {
           key: "getRanges",
           value: function getRanges() {
-            var _this155 = this;
+            var _this154 = this;
             var result = [];
             this.ranges.forEach(function (element) {
-              element.type = _this155.propertyType;
-              if (_this155.isWithStep()) {
+              element.type = _this154.propertyType;
+              if (_this154.isWithStep()) {
                 element.max = element.min;
                 if (element.min !== null && element.max !== null) {
                   result.push(element);
                 }
-              } else if (_this155.isMinMax()) {
-                element.style = [_this155.withLabel, _this155.withValue];
+              } else if (_this154.isMinMax()) {
+                element.style = [_this154.withLabel, _this154.withValue];
                 result.push(element);
               } else {
                 if (!_helpers_utils__WEBPACK_IMPORTED_MODULE_5__["Utils"].isNullOrUndefined(element.min) && !_helpers_utils__WEBPACK_IMPORTED_MODULE_5__["Utils"].isNullOrUndefined(element.max)) {
@@ -27400,10 +27393,10 @@
         _createClass(CardConfigComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this156 = this;
+            var _this155 = this;
             Object.keys(this.cardType).forEach(function (key) {
-              _this156.translateService.get(_this156.cardType[key]).subscribe(function (txt) {
-                _this156.cardType[key] = txt;
+              _this155.translateService.get(_this155.cardType[key]).subscribe(function (txt) {
+                _this155.cardType[key] = txt;
               });
             });
           }
@@ -27415,11 +27408,11 @@
         }, {
           key: "onOkClick",
           value: function onOkClick() {
-            var _this157 = this;
+            var _this156 = this;
             this.data.item.content = null;
             if (this.card.type === this.widgetView) {
               var view = this.data.views.find(function (v) {
-                return v.name === _this157.card.data;
+                return v.name === _this156.card.data;
               });
               if (view) {
                 this.data.item.content = view;
@@ -27525,9 +27518,9 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this158 = this;
+            var _this157 = this;
             setTimeout(function () {
-              _this158.reload();
+              _this157.reload();
             }, 200);
           }
         }, {
@@ -27572,7 +27565,7 @@
         }, {
           key: "addCardsWidget",
           value: function addCardsWidget() {
-            var _this159 = this;
+            var _this158 = this;
             var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
             var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
             var cols = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
@@ -27594,8 +27587,8 @@
             };
             item.initCallback = function () {
               if (card) {
-                if (card.type === _this159.widgetView) {
-                  var views = _this159.hmi.views.filter(function (v) {
+                if (card.type === _this158.widgetView) {
+                  var views = _this158.hmi.views.filter(function (v) {
                     return v.name === card.data;
                   });
                   if (views && views.length) {
@@ -27607,13 +27600,13 @@
                       item.background = views[0].profile.bkcolor;
                     }
                   }
-                } else if (card.type === _this159.widgetAlarms) {
+                } else if (card.type === _this158.widgetAlarms) {
                   item.background = '#CCCCCC';
                   item.content = ' ';
-                } else if (card.type === _this159.widgetIframe) {
+                } else if (card.type === _this158.widgetIframe) {
                   item.content = card.data;
                 }
-                _this159.changeDetector.detectChanges();
+                _this158.changeDetector.detectChanges();
               }
             };
             this.dashboard.push(item);
@@ -27893,7 +27886,7 @@
       };
       var ProjectService = /*#__PURE__*/function () {
         function ProjectService(resewbApiService, resDemoService, resClientService, scriptService, appService, translateService, toastr) {
-          var _this160 = this;
+          var _this159 = this;
           _classCallCheck(this, ProjectService);
           this.resewbApiService = resewbApiService;
           this.resDemoService = resDemoService;
@@ -27917,20 +27910,20 @@
           }
           // console.log("mode:", environment.type);
           this.storage.getAppId = function () {
-            return _this160.getAppId();
+            return _this159.getAppId();
           };
           this.storage.onRefreshProject = function () {
-            return _this160.onRefreshProject();
+            return _this159.onRefreshProject();
           };
           this.storage.checkServer().subscribe(function (result) {
             if (!_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].serverEnabled || result) {
-              _this160.serverSettings = result;
-              _this160.load();
+              _this159.serverSettings = result;
+              _this159.load();
             }
           }, function (error) {
             console.error('project.service err: ' + error);
-            _this160.load();
-            _this160.notifyServerError();
+            _this159.load();
+            _this159.notifyServerError();
           });
         }
         _createClass(ProjectService, [{
@@ -27948,17 +27941,17 @@
         }, {
           key: "onRefreshProject",
           value: function onRefreshProject() {
-            var _this161 = this;
+            var _this160 = this;
             this.storage.getStorageProject().subscribe(function (prj) {
               if (prj) {
-                _this161.projectData = prj;
+                _this160.projectData = prj;
                 // copy to check before save
-                _this161.projectOld = JSON.parse(JSON.stringify(_this161.projectData));
-                _this161.ready = true;
-                _this161.notifyToLoadHmi();
+                _this160.projectOld = JSON.parse(JSON.stringify(_this160.projectData));
+                _this160.ready = true;
+                _this160.notifyToLoadHmi();
               } else {
                 var msg = '';
-                _this161.translateService.get('msg.get-project-void').subscribe(function (txt) {
+                _this160.translateService.get('msg.get-project-void').subscribe(function (txt) {
                   msg = txt;
                 });
                 console.warn(msg);
@@ -27977,25 +27970,25 @@
         }, {
           key: "load",
           value: function load() {
-            var _this162 = this;
+            var _this161 = this;
             this.storage.getStorageProject().subscribe(function (prj) {
-              if (!prj && _this162.appService.isDemoApp) {
+              if (!prj && _this161.appService.isDemoApp) {
                 console.log('create demo');
-                _this162.setNewProject();
-              } else if (_this162.appService.isClientApp) {
-                if (!prj && _this162.storage.isReady) {
-                  _this162.setNewProject();
+                _this161.setNewProject();
+              } else if (_this161.appService.isClientApp) {
+                if (!prj && _this161.storage.isReady) {
+                  _this161.setNewProject();
                 } else {
-                  _this162.projectData = prj;
+                  _this161.projectData = prj;
                 }
-                _this162.ready = true;
-                _this162.notifyToLoadHmi();
+                _this161.ready = true;
+                _this161.notifyToLoadHmi();
               } else {
-                _this162.projectData = prj;
+                _this161.projectData = prj;
                 // copy to check before save
-                _this162.projectOld = JSON.parse(JSON.stringify(_this162.projectData));
-                _this162.ready = true;
-                _this162.notifyToLoadHmi();
+                _this161.projectOld = JSON.parse(JSON.stringify(_this161.projectData));
+                _this161.ready = true;
+                _this161.notifyToLoadHmi();
               }
             }, function (err) {
               console.error('FUXA load error', err);
@@ -28007,22 +28000,22 @@
         }, {
           key: "save",
           value: function save() {
-            var _this163 = this;
+            var _this162 = this;
             // check project change don't work some svg object change the order and this to check isn't easy...boooo
             this.storage.setServerProject(this.projectData).subscribe(function (result) {
-              _this163.load();
+              _this162.load();
               var msg = '';
-              _this163.translateService.get('msg.project-save-success').subscribe(function (txt) {
+              _this162.translateService.get('msg.project-save-success').subscribe(function (txt) {
                 msg = txt;
               });
-              _this163.toastr.success(msg);
+              _this162.toastr.success(msg);
             }, function (err) {
               console.error(err);
               var msg = '';
-              _this163.translateService.get('msg.project-save-error').subscribe(function (txt) {
+              _this162.translateService.get('msg.project-save-error').subscribe(function (txt) {
                 msg = txt;
               });
-              _this163.toastr.error(msg, '', {
+              _this162.toastr.error(msg, '', {
                 timeOut: 3000,
                 closeButton: true,
                 disableTimeOut: true
@@ -28067,13 +28060,13 @@
         }, {
           key: "importDevices",
           value: function importDevices(devices) {
-            var _this164 = this;
+            var _this163 = this;
             if (!devices) {
               this.notifyError('msg.import-devices-error');
             } else {
               devices.forEach(function (device) {
                 if (device.id && device.name) {
-                  _this164.setDevice(device, null, null);
+                  _this163.setDevice(device, null, null);
                 }
               });
             }
@@ -28125,32 +28118,32 @@
         }, {
           key: "setDevice",
           value: function setDevice(device, old, security) {
-            var _this165 = this;
+            var _this164 = this;
             if (this.projectData.devices) {
               this.projectData.devices[device.id] = device;
               this.storage.setDeviceSecurity(device.id, security).subscribe(function () {
-                _this165.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetDevice, device, _this165.projectData).subscribe(function (result) {
+                _this164.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetDevice, device, _this164.projectData).subscribe(function (result) {
                   if (old && old.id !== device.id) {
-                    _this165.removeDevice(old);
+                    _this164.removeDevice(old);
                   }
                 }, function (err) {
                   console.error(err);
-                  _this165.notifySaveError(err);
+                  _this164.notifySaveError(err);
                 });
               }, function (err) {
                 console.error(err);
-                _this165.notifySaveError(err);
+                _this164.notifySaveError(err);
               });
             }
           }
         }, {
           key: "setDeviceTags",
           value: function setDeviceTags(device) {
-            var _this166 = this;
+            var _this165 = this;
             this.projectData.devices[device.id] = device;
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetDevice, device, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this166.notifySaveError(err);
+              _this165.notifySaveError(err);
             });
           }
           /**
@@ -28161,15 +28154,15 @@
         }, {
           key: "removeDevice",
           value: function removeDevice(device) {
-            var _this167 = this;
+            var _this166 = this;
             delete this.projectData.devices[device.id];
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelDevice, device, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this167.notifySaveError(err);
+              _this166.notifySaveError(err);
             });
             this.storage.setDeviceSecurity(device.id, '').subscribe(function () {}, function (err) {
               console.error(err);
-              _this167.notifySaveError(err);
+              _this166.notifySaveError(err);
             });
           }
         }, {
@@ -28187,7 +28180,7 @@
         }, {
           key: "setView",
           value: function setView(view) {
-            var _this168 = this;
+            var _this167 = this;
             var v = null;
             for (var i = 0; i < this.projectData.hmi.views.length; i++) {
               if (this.projectData.hmi.views[i].id === view.id) {
@@ -28201,7 +28194,7 @@
             }
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetView, view, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this168.notifySaveError(err);
+              _this167.notifySaveError(err);
             });
           }
           /**
@@ -28232,7 +28225,7 @@
         }, {
           key: "removeView",
           value: function removeView(view) {
-            var _this169 = this;
+            var _this168 = this;
             for (var i = 0; i < this.projectData.hmi.views.length; i++) {
               if (this.projectData.hmi.views[i].id === view.id) {
                 this.projectData.hmi.views.splice(i, 1);
@@ -28241,7 +28234,7 @@
             }
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelView, view, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this169.notifySaveError(err);
+              _this168.notifySaveError(err);
             });
           }
           //#endregion
@@ -28277,10 +28270,10 @@
         }, {
           key: "saveLayout",
           value: function saveLayout() {
-            var _this170 = this;
+            var _this169 = this;
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].HmiLayout, this.projectData.hmi.layout, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this170.notifySaveError(err);
+              _this169.notifySaveError(err);
             });
           }
           //#endregion
@@ -28309,11 +28302,11 @@
         }, {
           key: "setCharts",
           value: function setCharts(charts) {
-            var _this171 = this;
+            var _this170 = this;
             this.projectData.charts = charts;
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].Charts, charts, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this171.notifySaveError(err);
+              _this170.notifySaveError(err);
             });
           }
           //#endregion
@@ -28351,11 +28344,11 @@
         }, {
           key: "setGraphs",
           value: function setGraphs(graphs) {
-            var _this172 = this;
+            var _this171 = this;
             this.projectData.graphs = graphs;
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].Graphs, graphs, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this172.notifySaveError(err);
+              _this171.notifySaveError(err);
             });
           }
           //#endregion
@@ -28374,12 +28367,12 @@
         }, {
           key: "setAlarm",
           value: function setAlarm(alarm, old) {
-            var _this173 = this;
+            var _this172 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (!_this173.projectData.alarms) {
-                _this173.projectData.alarms = [];
+              if (!_this172.projectData.alarms) {
+                _this172.projectData.alarms = [];
               }
-              var exist = _this173.projectData.alarms.find(function (tx) {
+              var exist = _this172.projectData.alarms.find(function (tx) {
                 return tx.name === alarm.name;
               });
               if (exist) {
@@ -28391,11 +28384,11 @@
                 exist.actions = alarm.actions;
                 exist.value = alarm.value;
               } else {
-                _this173.projectData.alarms.push(alarm);
+                _this172.projectData.alarms.push(alarm);
               }
-              _this173.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetAlarm, alarm, _this173.projectData).subscribe(function (result) {
+              _this172.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetAlarm, alarm, _this172.projectData).subscribe(function (result) {
                 if (old && old.name && old.name !== alarm.name) {
-                  _this173.removeAlarm(old).subscribe(function (result) {
+                  _this172.removeAlarm(old).subscribe(function (result) {
                     observer.next();
                   });
                 } else {
@@ -28403,7 +28396,7 @@
                 }
               }, function (err) {
                 console.error(err);
-                _this173.notifySaveError(err);
+                _this172.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28414,21 +28407,21 @@
         }, {
           key: "removeAlarm",
           value: function removeAlarm(alarm) {
-            var _this174 = this;
+            var _this173 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (_this174.projectData.alarms) {
-                for (var i = 0; i < _this174.projectData.alarms.length; i++) {
-                  if (_this174.projectData.alarms[i].name === alarm.name) {
-                    _this174.projectData.alarms.splice(i, 1);
+              if (_this173.projectData.alarms) {
+                for (var i = 0; i < _this173.projectData.alarms.length; i++) {
+                  if (_this173.projectData.alarms[i].name === alarm.name) {
+                    _this173.projectData.alarms.splice(i, 1);
                     break;
                   }
                 }
               }
-              _this174.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelAlarm, alarm, _this174.projectData).subscribe(function (result) {
+              _this173.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelAlarm, alarm, _this173.projectData).subscribe(function (result) {
                 observer.next();
               }, function (err) {
                 console.error(err);
-                _this174.notifySaveError(err);
+                _this173.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28464,12 +28457,12 @@
         }, {
           key: "setNotification",
           value: function setNotification(notification, old) {
-            var _this175 = this;
+            var _this174 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (!_this175.projectData.notifications) {
-                _this175.projectData.notifications = [];
+              if (!_this174.projectData.notifications) {
+                _this174.projectData.notifications = [];
               }
-              var exist = _this175.projectData.notifications.find(function (tx) {
+              var exist = _this174.projectData.notifications.find(function (tx) {
                 return tx.id === notification.id;
               });
               if (exist) {
@@ -28483,11 +28476,11 @@
                 exist.text = notification.text;
                 exist.type = notification.type;
               } else {
-                _this175.projectData.notifications.push(notification);
+                _this174.projectData.notifications.push(notification);
               }
-              _this175.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetNotification, notification, _this175.projectData).subscribe(function (result) {
+              _this174.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetNotification, notification, _this174.projectData).subscribe(function (result) {
                 if (old && old.id && old.id !== notification.id) {
-                  _this175.removeNotification(old).subscribe(function (result) {
+                  _this174.removeNotification(old).subscribe(function (result) {
                     observer.next();
                   });
                 } else {
@@ -28495,7 +28488,7 @@
                 }
               }, function (err) {
                 console.error(err);
-                _this175.notifySaveError(err);
+                _this174.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28506,21 +28499,21 @@
         }, {
           key: "removeNotification",
           value: function removeNotification(notification) {
-            var _this176 = this;
+            var _this175 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (_this176.projectData.notifications) {
-                for (var i = 0; i < _this176.projectData.notifications.length; i++) {
-                  if (_this176.projectData.notifications[i].id === notification.id) {
-                    _this176.projectData.notifications.splice(i, 1);
+              if (_this175.projectData.notifications) {
+                for (var i = 0; i < _this175.projectData.notifications.length; i++) {
+                  if (_this175.projectData.notifications[i].id === notification.id) {
+                    _this175.projectData.notifications.splice(i, 1);
                     break;
                   }
                 }
               }
-              _this176.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelNotification, notification, _this176.projectData).subscribe(function (result) {
+              _this175.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelNotification, notification, _this175.projectData).subscribe(function (result) {
                 observer.next();
               }, function (err) {
                 console.error(err);
-                _this176.notifySaveError(err);
+                _this175.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28529,13 +28522,13 @@
         }, {
           key: "initScheduledScripts",
           value: function initScheduledScripts() {
-            var _this177 = this;
+            var _this176 = this;
             /* init all schedules from scripts with mode client */
             if (this.projectData.scripts) {
               this.projectData.scripts.forEach(function (script) {
                 if (script.mode == _models_script__WEBPACK_IMPORTED_MODULE_4__["ScriptMode"].CLIENT && script.scheduling && script.scheduling.interval > 0) {
-                  _this177.intervals.push(setInterval(function () {
-                    _this177.scriptService.runScript(script).subscribe(function () {});
+                  _this176.intervals.push(setInterval(function () {
+                    _this176.scriptService.runScript(script).subscribe(function () {});
                   }, script.scheduling.interval * 1000));
                 }
               });
@@ -28565,12 +28558,12 @@
         }, {
           key: "setScript",
           value: function setScript(script, old) {
-            var _this178 = this;
+            var _this177 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (!_this178.projectData.scripts) {
-                _this178.projectData.scripts = [];
+              if (!_this177.projectData.scripts) {
+                _this177.projectData.scripts = [];
               }
-              var exist = _this178.projectData.scripts.find(function (tx) {
+              var exist = _this177.projectData.scripts.find(function (tx) {
                 return tx.id === script.id;
               });
               if (exist) {
@@ -28579,11 +28572,11 @@
                 exist.parameters = script.parameters;
                 exist.mode = script.mode;
               } else {
-                _this178.projectData.scripts.push(script);
+                _this177.projectData.scripts.push(script);
               }
-              _this178.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetScript, script, _this178.projectData).subscribe(function (result) {
+              _this177.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetScript, script, _this177.projectData).subscribe(function (result) {
                 if (old && old.id && old.id !== script.id) {
-                  _this178.removeScript(old).subscribe(function (result) {
+                  _this177.removeScript(old).subscribe(function (result) {
                     observer.next();
                   });
                 } else {
@@ -28591,7 +28584,7 @@
                 }
               }, function (err) {
                 console.error(err);
-                _this178.notifySaveError(err);
+                _this177.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28602,21 +28595,21 @@
         }, {
           key: "removeScript",
           value: function removeScript(script) {
-            var _this179 = this;
+            var _this178 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (_this179.projectData.scripts) {
-                for (var i = 0; i < _this179.projectData.scripts.length; i++) {
-                  if (_this179.projectData.scripts[i].id === script.id) {
-                    _this179.projectData.scripts.splice(i, 1);
+              if (_this178.projectData.scripts) {
+                for (var i = 0; i < _this178.projectData.scripts.length; i++) {
+                  if (_this178.projectData.scripts[i].id === script.id) {
+                    _this178.projectData.scripts.splice(i, 1);
                     break;
                   }
                 }
               }
-              _this179.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelScript, script, _this179.projectData).subscribe(function (result) {
+              _this178.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelScript, script, _this178.projectData).subscribe(function (result) {
                 observer.next();
               }, function (err) {
                 console.error(err);
-                _this179.notifySaveError(err);
+                _this178.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28637,22 +28630,22 @@
         }, {
           key: "setReport",
           value: function setReport(report, old) {
-            var _this180 = this;
+            var _this179 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (!_this180.projectData.reports) {
-                _this180.projectData.reports = [];
+              if (!_this179.projectData.reports) {
+                _this179.projectData.reports = [];
               }
-              var exist = _this180.projectData.reports.find(function (tx) {
+              var exist = _this179.projectData.reports.find(function (tx) {
                 return tx.id === report.id;
               });
               if (exist) {
                 _helpers_utils__WEBPACK_IMPORTED_MODULE_13__["Utils"].assign(exist, report);
               } else {
-                _this180.projectData.reports.push(report);
+                _this179.projectData.reports.push(report);
               }
-              _this180.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetReport, report, _this180.projectData).subscribe(function (result) {
+              _this179.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetReport, report, _this179.projectData).subscribe(function (result) {
                 if (old && old.id && old.id !== report.id) {
-                  _this180.removeReport(old).subscribe(function (result) {
+                  _this179.removeReport(old).subscribe(function (result) {
                     observer.next();
                   });
                 } else {
@@ -28660,7 +28653,7 @@
                 }
               }, function (err) {
                 console.error(err);
-                _this180.notifySaveError(err);
+                _this179.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28671,21 +28664,21 @@
         }, {
           key: "removeReport",
           value: function removeReport(report) {
-            var _this181 = this;
+            var _this180 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-              if (_this181.projectData.reports) {
-                for (var i = 0; i < _this181.projectData.reports.length; i++) {
-                  if (_this181.projectData.reports[i].id === report.id) {
-                    _this181.projectData.reports.splice(i, 1);
+              if (_this180.projectData.reports) {
+                for (var i = 0; i < _this180.projectData.reports.length; i++) {
+                  if (_this180.projectData.reports[i].id === report.id) {
+                    _this180.projectData.reports.splice(i, 1);
                     break;
                   }
                 }
               }
-              _this181.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelReport, report, _this181.projectData).subscribe(function (result) {
+              _this180.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelReport, report, _this180.projectData).subscribe(function (result) {
                 observer.next();
               }, function (err) {
                 console.error(err);
-                _this181.notifySaveError(err);
+                _this180.notifySaveError(err);
                 observer.error(err);
               });
             });
@@ -28707,7 +28700,7 @@
         }, {
           key: "setText",
           value: function setText(text, old) {
-            var _this182 = this;
+            var _this181 = this;
             if (!this.projectData.texts) {
               this.projectData.texts = [];
             }
@@ -28722,11 +28715,11 @@
             }
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].SetText, text, this.projectData).subscribe(function (result) {
               if (old && old.name && old.name !== text.name) {
-                _this182.removeText(old);
+                _this181.removeText(old);
               }
             }, function (err) {
               console.error(err);
-              _this182.notifySaveError(err);
+              _this181.notifySaveError(err);
             });
           }
           /**
@@ -28736,7 +28729,7 @@
         }, {
           key: "removeText",
           value: function removeText(text) {
-            var _this183 = this;
+            var _this182 = this;
             if (this.projectData.texts) {
               for (var i = 0; i < this.projectData.texts.length; i++) {
                 if (this.projectData.texts[i].name === text.name) {
@@ -28747,7 +28740,7 @@
             }
             this.storage.setServerProjectData(_models_project__WEBPACK_IMPORTED_MODULE_3__["ProjectDataCmdType"].DelText, text, this.projectData).subscribe(function (result) {}, function (err) {
               console.error(err);
-              _this183.notifySaveError(err);
+              _this182.notifySaveError(err);
             });
           }
           //#endregion
@@ -28892,11 +28885,11 @@
         }, {
           key: "getDeviceFromId",
           value: function getDeviceFromId(id) {
-            var _this184 = this;
+            var _this183 = this;
             var result;
             Object.keys(this.projectData.devices).forEach(function (k) {
-              if (_this184.projectData.devices[k].id === id) {
-                result = _this184.projectData.devices[k];
+              if (_this183.projectData.devices[k].id === id) {
+                result = _this183.projectData.devices[k];
               }
             });
             return result;
@@ -29139,7 +29132,7 @@
         _createClass(AuthInterceptor, [{
           key: "intercept",
           value: function intercept(req, next) {
-            var _this185 = this;
+            var _this184 = this;
             var authService = this.injector.get(_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]);
             if (authService.getUserToken) {
               var token = authService.getUserToken();
@@ -29170,7 +29163,7 @@
                 if (err.status === 403) {
                   // redirect to the login route or show a modal
                   authService.signOut();
-                  var projectService = _this185.injector.get(_services_project_service__WEBPACK_IMPORTED_MODULE_4__["ProjectService"]);
+                  var projectService = _this184.injector.get(_services_project_service__WEBPACK_IMPORTED_MODULE_4__["ProjectService"]);
                   projectService.reload();
                 }
               }
@@ -29719,7 +29712,7 @@
         }, {
           key: "onLayoutConfig",
           value: function onLayoutConfig() {
-            var _this186 = this;
+            var _this185 = this;
             this.onNoClick();
             var templayout = null;
             var hmi = this.projectService.getHmi();
@@ -29742,7 +29735,7 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 hmi.layout = JSON.parse(JSON.stringify(result.layout));
-                _this186.projectService.setLayout(hmi.layout);
+                _this185.projectService.setLayout(hmi.layout);
               }
             });
           }
@@ -29938,26 +29931,26 @@
         _createClass(AppSettingsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this187 = this;
+            var _this186 = this;
             this.settings = JSON.parse(JSON.stringify(this.settingsService.getSettings()));
             var _loop4 = function _loop4(i) {
-              _this187.translateService.get(_this187.languageType[i].text).subscribe(function (txt) {
-                _this187.languageType[i].text = txt;
+              _this186.translateService.get(_this186.languageType[i].text).subscribe(function (txt) {
+                _this186.languageType[i].text = txt;
               });
             };
             for (var i = 0; i < this.languageType.length; i++) {
               _loop4(i);
             }
             var _loop5 = function _loop5(_i6) {
-              _this187.translateService.get(_this187.authType[_i6].text).subscribe(function (txt) {
-                _this187.authType[_i6].text = txt;
+              _this186.translateService.get(_this186.authType[_i6].text).subscribe(function (txt) {
+                _this186.authType[_i6].text = txt;
               });
             };
             for (var _i6 = 0; _i6 < this.authType.length; _i6++) {
               _loop5(_i6);
             }
             this.translateService.get('dlg.app-auth-tooltip').subscribe(function (txt) {
-              _this187.authenticationTooltip = txt;
+              _this186.authenticationTooltip = txt;
             });
             if (this.settings.secureEnabled) {
               this.authentication = this.settings.tokenExpiresIn;
@@ -29998,7 +29991,7 @@
         }, {
           key: "onSmtpTest",
           value: function onSmtpTest() {
-            var _this188 = this;
+            var _this187 = this;
             this.smtpTesting = true;
             var msg = {
               from: this.settings.smtp.mailsender || this.settings.smtp.username,
@@ -30007,22 +30000,22 @@
               text: 'TEST'
             };
             this.diagnoseService.sendMail(msg, this.settings.smtp).subscribe(function () {
-              _this188.smtpTesting = false;
+              _this187.smtpTesting = false;
               var msg = '';
-              _this188.translateService.get('msg.sendmail-success').subscribe(function (txt) {
+              _this187.translateService.get('msg.sendmail-success').subscribe(function (txt) {
                 msg = txt;
               });
-              _this188.toastr.success(msg);
+              _this187.toastr.success(msg);
             }, function (error) {
-              _this188.smtpTesting = false;
+              _this187.smtpTesting = false;
               if (error.message) {
-                _this188.notifyError(error.message);
+                _this187.notifyError(error.message);
               } else {
                 var msg = '';
-                _this188.translateService.get('msg.sendmail-error').subscribe(function (txt) {
+                _this187.translateService.get('msg.sendmail-error').subscribe(function (txt) {
                   msg = txt;
                 });
-                _this188.notifyError(msg);
+                _this187.notifyError(msg);
               }
             });
           }
@@ -30234,11 +30227,11 @@
         _createClass(DataTableComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this189 = this;
+            var _this188 = this;
             this.dataSource.data = this.data;
             Object.keys(this.lastRangeType).forEach(function (key) {
-              _this189.translateService.get(_this189.lastRangeType[key]).subscribe(function (txt) {
-                _this189.lastRangeType[key] = txt;
+              _this188.translateService.get(_this188.lastRangeType[key]).subscribe(function (txt) {
+                _this188.lastRangeType[key] = txt;
               });
             });
             this.dataSource.filterPredicate = function (match, filter) {
@@ -30290,19 +30283,19 @@
         }, {
           key: "onDateRange",
           value: function onDateRange() {
-            var _this190 = this;
+            var _this189 = this;
             var dialogRef = this.dialog.open(_gui_helpers_daterange_dialog_daterange_dialog_component__WEBPACK_IMPORTED_MODULE_10__["DaterangeDialogComponent"], {
               panelClass: 'light-dialog-container'
             });
             dialogRef.afterClosed().subscribe(function (dateRange) {
               if (dateRange) {
-                _this190.range.from = dateRange.start;
-                _this190.range.to = dateRange.end;
-                _this190.lastDaqQuery.gid = _this190.id;
-                _this190.lastDaqQuery.sids = Object.keys(_this190.tagsColumnMap);
-                _this190.lastDaqQuery.from = dateRange.start;
-                _this190.lastDaqQuery.to = dateRange.end;
-                _this190.onDaqQuery();
+                _this189.range.from = dateRange.start;
+                _this189.range.to = dateRange.end;
+                _this189.lastDaqQuery.gid = _this189.id;
+                _this189.lastDaqQuery.sids = Object.keys(_this189.tagsColumnMap);
+                _this189.lastDaqQuery.from = dateRange.start;
+                _this189.lastDaqQuery.to = dateRange.end;
+                _this189.onDaqQuery();
               }
             });
           }
@@ -30330,16 +30323,16 @@
         }, {
           key: "addValue",
           value: function addValue(variableId, dt, variableValue) {
-            var _this191 = this;
+            var _this190 = this;
             if (this.tagsMap[variableId]) {
               this.tagsMap[variableId].value = variableValue;
               this.tagsMap[variableId].cells.forEach(function (cell) {
-                cell.stringValue = _helpers_utils__WEBPACK_IMPORTED_MODULE_7__["Utils"].formatValue(_this191.tagsMap[variableId].value, cell.valueFormat);
+                cell.stringValue = _helpers_utils__WEBPACK_IMPORTED_MODULE_7__["Utils"].formatValue(_this190.tagsMap[variableId].value, cell.valueFormat);
               });
               // update timestamp of all timestamp cells
               this.tagsMap[variableId].rows.forEach(function (rowIndex) {
-                if (_this191.timestampMap[rowIndex]) {
-                  _this191.timestampMap[rowIndex].forEach(function (cell) {
+                if (_this190.timestampMap[rowIndex]) {
+                  _this190.timestampMap[rowIndex].forEach(function (cell) {
                     cell.stringValue = Object(fecha__WEBPACK_IMPORTED_MODULE_12__["format"])(new Date(dt * 1e3), cell.valueFormat || 'YYYY-MM-DDTHH:mm:ss');
                   });
                 }
@@ -30349,7 +30342,7 @@
         }, {
           key: "setValues",
           value: function setValues(values) {
-            var _this192 = this;
+            var _this191 = this;
             // merge the data to have rows with 0:timestamp, n:variable values
             var data = [];
             // data.push({});
@@ -30402,7 +30395,7 @@
             this.dataSource.data = dataTable;
             this.bindTableControls();
             setTimeout(function () {
-              _this192.setLoading(false);
+              _this191.setLoading(false);
             }, 500);
             this.reloadActive = false;
           }
@@ -30416,10 +30409,10 @@
         }, {
           key: "setLoading",
           value: function setLoading(load) {
-            var _this193 = this;
+            var _this192 = this;
             if (load) {
               Object(rxjs__WEBPACK_IMPORTED_MODULE_13__["timer"])(10000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_14__["takeUntil"])(this.destroy$)).subscribe(function (res) {
-                _this193.loading = false;
+                _this192.loading = false;
               });
             }
             this.loading = load;
@@ -30457,16 +30450,16 @@
         }, {
           key: "loadData",
           value: function loadData() {
-            var _this194 = this;
+            var _this193 = this;
             // columns
             var columnIds = [];
             this.columnsStyle = {};
             this.tableOptions.columns.forEach(function (cn) {
               columnIds.push(cn.id);
-              _this194.columnsStyle[cn.id] = cn;
-              if (_this194.type === _models_hmi__WEBPACK_IMPORTED_MODULE_11__["TableType"].history) {
+              _this193.columnsStyle[cn.id] = cn;
+              if (_this193.type === _models_hmi__WEBPACK_IMPORTED_MODULE_11__["TableType"].history) {
                 if (cn.variableId) {
-                  _this194.addColumnToMap(cn);
+                  _this193.addColumnToMap(cn);
                 }
               }
             });
@@ -30475,7 +30468,7 @@
               // rows
               this.data = [];
               var _loop6 = function _loop6(i) {
-                var r = _this194.tableOptions.rows[i];
+                var r = _this193.tableOptions.rows[i];
                 var row = {};
                 r.cells.forEach(function (cell) {
                   if (cell) {
@@ -30483,10 +30476,10 @@
                       stringValue: '',
                       rowIndex: i
                     }, cell);
-                    _this194.mapCellContent(row[cell.id]);
+                    _this193.mapCellContent(row[cell.id]);
                   }
                 });
-                _this194.data.push(row);
+                _this193.data.push(row);
               };
               for (var i = 0; i < this.tableOptions.rows.length; i++) {
                 _loop6(i);
@@ -30702,14 +30695,14 @@
         _inherits(GraphPieComponent, _graph_base_graph_bas2);
         var _super18 = _createSuper(GraphPieComponent);
         function GraphPieComponent() {
-          var _this195;
+          var _this194;
           _classCallCheck(this, GraphPieComponent);
-          _this195 = _super18.call(this);
-          _this195.height = 240;
-          _this195.width = 380;
-          _this195.id = '';
-          _this195.isEditor = false;
-          _this195.data = {
+          _this194 = _super18.call(this);
+          _this194.height = 240;
+          _this194.width = 380;
+          _this194.id = '';
+          _this194.isEditor = false;
+          _this194.data = {
             labels: ['Red', 'Green', 'Yellow'],
             datasets: [{
               data: [300, 50, 100],
@@ -30717,7 +30710,7 @@
               hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
             }]
           };
-          return _this195;
+          return _this194;
         }
         _createClass(GraphPieComponent, [{
           key: "ngOnDestroy",
@@ -30881,13 +30874,13 @@
         }, {
           key: "loadUsers",
           value: function loadUsers() {
-            var _this196 = this;
+            var _this195 = this;
             this.users = [];
             this.userService.getUsers(null).subscribe(function (result) {
               Object.values(result).forEach(function (u) {
-                _this196.users.push(u);
+                _this195.users.push(u);
               });
-              _this196.bindToTable(_this196.users);
+              _this195.bindToTable(_this195.users);
             }, function (err) {
               console.error('get Users err: ' + err);
             });
@@ -30895,7 +30888,7 @@
         }, {
           key: "editUser",
           value: function editUser(user, current) {
-            var _this197 = this;
+            var _this196 = this;
             var muser = JSON.parse(JSON.stringify(user));
             muser.password = '';
             var dialogRef = this.dialog.open(DialogUser, {
@@ -30913,15 +30906,15 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 if (!current) {
-                  _this197.userService.removeUser(result).subscribe(function (result) {
-                    _this197.users = _this197.users.filter(function (el) {
+                  _this196.userService.removeUser(result).subscribe(function (result) {
+                    _this196.users = _this196.users.filter(function (el) {
                       return el.username !== muser.username;
                     });
-                    _this197.bindToTable(_this197.users);
+                    _this196.bindToTable(_this196.users);
                   }, function (err) {});
                 } else {
-                  _this197.userService.setUser(result).subscribe(function (result) {
-                    _this197.loadUsers();
+                  _this196.userService.setUser(result).subscribe(function (result) {
+                    _this196.loadUsers();
                   }, function (err) {});
                 }
               }
@@ -31170,7 +31163,7 @@
         }, {
           key: "onEditColumn",
           value: function onEditColumn(columnId) {
-            var _this198 = this;
+            var _this197 = this;
             var colIndex = this.data.columns.findIndex(function (c) {
               return c.id === columnId;
             });
@@ -31190,22 +31183,22 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                var _colIndex = _this198.data.columns.findIndex(function (c) {
+                var _colIndex = _this197.data.columns.findIndex(function (c) {
                   return c.id === result.cell.id;
                 });
                 if (_colIndex >= 0) {
-                  _this198.data.columns[_colIndex] = result.cell;
+                  _this197.data.columns[_colIndex] = result.cell;
                 } else {
-                  _this198.data.columns.push(result.cell);
+                  _this197.data.columns.push(result.cell);
                 }
-                _this198.loadData();
+                _this197.loadData();
               }
             });
           }
         }, {
           key: "onEditCell",
           value: function onEditCell(row, columnId) {
-            var _this199 = this;
+            var _this198 = this;
             var rowIndex = this.dataSource.data.indexOf(row, 0);
             var colIndex = this.data.columns.findIndex(function (c) {
               return c.id === columnId;
@@ -31226,8 +31219,8 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this199.data.rows[rowIndex].cells[colIndex] = result.cell;
-                _this199.loadData();
+                _this198.data.rows[rowIndex].cells[colIndex] = result.cell;
+                _this198.loadData();
               }
             });
           }
@@ -31288,16 +31281,16 @@
         }, {
           key: "onOkClick",
           value: function onOkClick() {
-            var _this200 = this;
+            var _this199 = this;
             this.data.rows.forEach(function (row) {
               // check missing cell, happens if you add a column and do not set it in the rows
               // or remove cells of deleted columns
-              if (row.cells.length < _this200.data.columns.length) {
-                for (var i = row.cells.length; i < _this200.data.columns.length; i++) {
-                  row.cells.push(new _models_hmi__WEBPACK_IMPORTED_MODULE_6__["TableCell"](_this200.data.columns[i].id, _models_hmi__WEBPACK_IMPORTED_MODULE_6__["TableCellType"].label, ''));
+              if (row.cells.length < _this199.data.columns.length) {
+                for (var i = row.cells.length; i < _this199.data.columns.length; i++) {
+                  row.cells.push(new _models_hmi__WEBPACK_IMPORTED_MODULE_6__["TableCell"](_this199.data.columns[i].id, _models_hmi__WEBPACK_IMPORTED_MODULE_6__["TableCellType"].label, ''));
                 }
-              } else if (row.cells.length > _this200.data.columns.length) {
-                var columnIds = _this200.data.columns.map(function (column) {
+              } else if (row.cells.length > _this199.data.columns.length) {
+                var columnIds = _this199.data.columns.map(function (column) {
                   return column.id;
                 });
                 var cells = row.cells.filter(function (cell) {
@@ -31469,14 +31462,14 @@
         _createClass(ReportListComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this201 = this;
+            var _this200 = this;
             this.loadReports();
             this.subscriptionLoad = this.projectService.onLoadHmi.subscribe(function (res) {
-              _this201.loadReports();
+              _this200.loadReports();
             });
             Object.keys(this.schedulingType).forEach(function (key) {
-              _this201.translateService.get(_this201.schedulingType[key]).subscribe(function (txt) {
-                _this201.schedulingType[key] = txt;
+              _this200.translateService.get(_this200.schedulingType[key]).subscribe(function (txt) {
+                _this200.schedulingType[key] = txt;
               });
             });
           }
@@ -31522,7 +31515,7 @@
         }, {
           key: "editReport",
           value: function editReport(report, toAdd) {
-            var _this202 = this;
+            var _this201 = this;
             var dlgwidth = toAdd < 0 ? 'auto' : '80%';
             var reports = this.dataSource.data.filter(function (s) {
               return s.id !== report.id;
@@ -31543,12 +31536,12 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 if (toAdd < 0) {
-                  _this202.projectService.removeReport(result).subscribe(function (result) {
-                    _this202.loadReports();
+                  _this201.projectService.removeReport(result).subscribe(function (result) {
+                    _this201.loadReports();
                   });
                 } else {
-                  _this202.projectService.setReport(result, report).subscribe(function () {
-                    _this202.loadReports();
+                  _this201.projectService.setReport(result, report).subscribe(function () {
+                    _this201.loadReports();
                   });
                 }
               }
@@ -31802,9 +31795,9 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this203 = this;
+            var _this202 = this;
             setTimeout(function () {
-              _this203.init();
+              _this202.init();
             }, 200);
           }
         }, {
@@ -32050,21 +32043,21 @@
         _createClass(DeviceWebapiPropertyDialogComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this204 = this;
+            var _this203 = this;
             this.cacheDevice = JSON.parse(JSON.stringify(this.data.device));
             this.subscriptionDeviceTagsRequest = this.hmiService.onDeviceTagsRequest.subscribe(function (res) {
               if (res.result && res.result.tags) {
-                _this204.translateService.get('msg.device-tags-request-result', {
+                _this203.translateService.get('msg.device-tags-request-result', {
                   value: res.result.newTagsCount,
                   current: res.result.tags.length
                 }).subscribe(function (txt) {
-                  _this204.message = txt;
+                  _this203.message = txt;
                 });
                 if (res.result.newTagsCount) {
                   for (var i = 0; i < res.result.tags.length; i++) {
-                    _this204.data.device.tags[res.result.tags[i][0].id] = res.result.tags[i][0];
+                    _this203.data.device.tags[res.result.tags[i][0].id] = res.result.tags[i][0];
                   }
-                  _this204.projectService.setDevice(_this204.data.device, _this204.data.device, null);
+                  _this203.projectService.setDevice(_this203.data.device, _this203.data.device, null);
                 }
               }
             });
@@ -32361,10 +32354,10 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this205 = this;
+            var _this204 = this;
             Object.keys(this.lastRangeType).forEach(function (key) {
-              _this205.translateService.get(_this205.lastRangeType[key]).subscribe(function (txt) {
-                _this205.lastRangeType[key] = txt;
+              _this204.translateService.get(_this204.lastRangeType[key]).subscribe(function (txt) {
+                _this204.lastRangeType[key] = txt;
               });
             });
             this._reload();
@@ -32395,7 +32388,7 @@
         }, {
           key: "onAdd",
           value: function onAdd() {
-            var _this206 = this;
+            var _this205 = this;
             // if (this.grptabs.selectedIndex === 0) { // columns
             //     this.options.columns.push(new TableColumn());
             // } else if (this.grptabs.selectedIndex === 1) { // rows
@@ -32413,9 +32406,9 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this206.options.columns = result.columns;
-                _this206.options.rows = result.rows;
-                _this206.onTableChanged();
+                _this205.options.columns = result.columns;
+                _this205.options.rows = result.rows;
+                _this205.onTableChanged();
               }
             });
           }
@@ -32927,15 +32920,15 @@
         _createClass(DeviceMapComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this207 = this;
+            var _this206 = this;
             this.loadCurrentProject();
             this.loadAvailableType();
             this.subscriptionPluginsChange = this.pluginService.onPluginsChanged.subscribe(function (event) {
-              _this207.loadAvailableType();
+              _this206.loadAvailableType();
             });
             Object.keys(this.deviceStatusType).forEach(function (key) {
-              _this207.translateService.get(_this207.deviceStatusType[key]).subscribe(function (txt) {
-                _this207.deviceStatusType[key] = txt;
+              _this206.translateService.get(_this206.deviceStatusType[key]).subscribe(function (txt) {
+                _this206.deviceStatusType[key] = txt;
               });
             });
           }
@@ -32992,14 +32985,14 @@
         }, {
           key: "loadAvailableType",
           value: function loadAvailableType() {
-            var _this208 = this;
+            var _this207 = this;
             // define available device type (plugins)
             this.plugins = [];
             if (!this.appService.isClientApp && !this.appService.isDemoApp) {
               this.pluginService.getPlugins().subscribe(function (plugins) {
                 Object.values(plugins).forEach(function (pg) {
                   if (pg.current.length) {
-                    _this208.plugins.push(pg.type);
+                    _this207.plugins.push(pg.type);
                   }
                 });
               }, function (error) {});
@@ -33367,7 +33360,7 @@
         }, {
           key: "editDevice",
           value: function editDevice(device, toremove) {
-            var _this209 = this;
+            var _this208 = this;
             var exist = Object.values(this.devices).filter(function (d) {
               return d.id !== device.id;
             }).map(function (d) {
@@ -33390,17 +33383,17 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this209.dirty = true;
+                _this208.dirty = true;
                 if (toremove) {
-                  _this209.removeDevice(device);
-                  _this209.projectService.removeDevice(device);
+                  _this208.removeDevice(device);
+                  _this208.projectService.removeDevice(device);
                 } else {
                   var olddevice = JSON.parse(JSON.stringify(device));
                   device.name = tempdevice.name;
                   device.type = tempdevice.type;
                   device.enabled = tempdevice.enabled;
                   device.polling = tempdevice.polling;
-                  if (_this209.appService.isClientApp || _this209.appService.isDemoApp) {
+                  if (_this208.appService.isClientApp || _this208.appService.isDemoApp) {
                     delete device.property;
                   }
                   if (device.property && tempdevice.property) {
@@ -33417,10 +33410,10 @@
                     device.property.method = tempdevice.property.method;
                     device.property.format = tempdevice.property.format;
                   }
-                  _this209.projectService.setDevice(device, olddevice, result.security);
+                  _this208.projectService.setDevice(device, olddevice, result.security);
                 }
               }
-              _this209.checkLayout();
+              _this208.checkLayout();
             });
           }
         }, {
@@ -33585,22 +33578,22 @@
         _createClass(BagPropertyComponent, [{
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this210 = this;
+            var _this209 = this;
             setTimeout(function () {
-              _this210.gaugeType = _gui_helpers_ngx_gauge_gaugeOptions__WEBPACK_IMPORTED_MODULE_5__["GaugeType"].Gauge;
-              if (_this210.property.options) {
-                _this210.options = _this210.property.options;
-                _this210.gaugeType = _this210.options.type;
-                if (_this210.gaugeType === _gui_helpers_ngx_gauge_gaugeOptions__WEBPACK_IMPORTED_MODULE_5__["GaugeType"].Donut) {
-                  _this210.optionsDonut = _this210.options;
-                } else if (_this210.gaugeType === _gui_helpers_ngx_gauge_gaugeOptions__WEBPACK_IMPORTED_MODULE_5__["GaugeType"].Zones) {
-                  _this210.optionsZones = _this210.options;
+              _this209.gaugeType = _gui_helpers_ngx_gauge_gaugeOptions__WEBPACK_IMPORTED_MODULE_5__["GaugeType"].Gauge;
+              if (_this209.property.options) {
+                _this209.options = _this209.property.options;
+                _this209.gaugeType = _this209.options.type;
+                if (_this209.gaugeType === _gui_helpers_ngx_gauge_gaugeOptions__WEBPACK_IMPORTED_MODULE_5__["GaugeType"].Donut) {
+                  _this209.optionsDonut = _this209.options;
+                } else if (_this209.gaugeType === _gui_helpers_ngx_gauge_gaugeOptions__WEBPACK_IMPORTED_MODULE_5__["GaugeType"].Zones) {
+                  _this209.optionsZones = _this209.options;
                 } else {
-                  _this210.optionsGauge = _this210.options;
+                  _this209.optionsGauge = _this209.options;
                 }
               }
-              _this210.onGaugeChange(_this210.gaugeType);
-              _this210.cdRef.detectChanges();
+              _this209.onGaugeChange(_this209.gaugeType);
+              _this209.cdRef.detectChanges();
             }, 500);
           }
         }, {
@@ -33618,7 +33611,7 @@
         }, {
           key: "onEditPermission",
           value: function onEditPermission() {
-            var _this211 = this;
+            var _this210 = this;
             var permission = this.property.permission;
             var dialogRef = this.dialog.open(_gauge_property_gauge_property_component__WEBPACK_IMPORTED_MODULE_8__["DialogGaugePermission"], {
               position: {
@@ -33630,7 +33623,7 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this211.property.permission = result.permission;
+                _this210.property.permission = result.permission;
               }
             });
           }
@@ -33818,7 +33811,7 @@
         }, {
           key: "initOptionsToConfig",
           value: function initOptionsToConfig(options) {
-            var _this212 = this;
+            var _this211 = this;
             this.optcfg = JSON.parse(JSON.stringify(options));
             this.optcfg.angle *= 100;
             this.optcfg.lineWidth *= 100;
@@ -33842,10 +33835,10 @@
             this.optcfg.staticLabelsText = '';
             if (this.optcfg.staticLabels && this.optcfg.staticLabels.labels.length) {
               this.optcfg.staticLabels.labels.forEach(function (lb) {
-                if (_this212.optcfg.staticLabelsText) {
-                  _this212.optcfg.staticLabelsText += ';';
+                if (_this211.optcfg.staticLabelsText) {
+                  _this211.optcfg.staticLabelsText += ';';
                 }
-                _this212.optcfg.staticLabelsText += lb;
+                _this211.optcfg.staticLabelsText += lb;
               });
             }
           }
@@ -34007,37 +34000,37 @@
         _inherits(CustomMatPaginatorIntl, _angular_material_pag);
         var _super19 = _createSuper(CustomMatPaginatorIntl);
         function CustomMatPaginatorIntl(translateService) {
-          var _this213;
+          var _this212;
           _classCallCheck(this, CustomMatPaginatorIntl);
-          _this213 = _super19.call(this);
-          _this213.translateService = translateService;
-          _this213.ofLabel = 'of';
-          _this213.unsubscribe = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
-          _this213.getRangeLabel = function (page, pageSize, length) {
+          _this212 = _super19.call(this);
+          _this212.translateService = translateService;
+          _this212.ofLabel = 'of';
+          _this212.unsubscribe = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+          _this212.getRangeLabel = function (page, pageSize, length) {
             if (length === 0 || pageSize === 0) {
-              return "0 ".concat(_this213.ofLabel, " ").concat(length);
+              return "0 ".concat(_this212.ofLabel, " ").concat(length);
             }
             length = Math.max(length, 0);
             var startIndex = page * pageSize;
             var endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-            return "".concat(startIndex + 1, " - ").concat(endIndex, " ").concat(_this213.ofLabel, " ").concat(length);
+            return "".concat(startIndex + 1, " - ").concat(endIndex, " ").concat(_this212.ofLabel, " ").concat(length);
           };
-          _this213.translateService.onLangChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(_this213.unsubscribe)).subscribe(function () {
-            _this213.getAndInitTranslations();
+          _this212.translateService.onLangChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(_this212.unsubscribe)).subscribe(function () {
+            _this212.getAndInitTranslations();
           });
-          _this213.getAndInitTranslations();
-          return _this213;
+          _this212.getAndInitTranslations();
+          return _this212;
         }
         _createClass(CustomMatPaginatorIntl, [{
           key: "getAndInitTranslations",
           value: function getAndInitTranslations() {
-            var _this214 = this;
+            var _this213 = this;
             this.translateService.get(['table.property-paginator-items-per-page', 'table.property-paginator-next-page', 'table.property-paginator-prev-page', 'table.property-paginator-of-label']).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this.unsubscribe)).subscribe(function (translation) {
-              _this214.itemsPerPageLabel = translation['table.property-paginator-items-per-page'];
-              _this214.nextPageLabel = translation['table.property-paginator-next-page'];
-              _this214.previousPageLabel = translation['Ptable.property-paginator-prev-page'];
-              _this214.ofLabel = translation['table.property-paginator-of-label'];
-              _this214.changes.next();
+              _this213.itemsPerPageLabel = translation['table.property-paginator-items-per-page'];
+              _this213.nextPageLabel = translation['table.property-paginator-next-page'];
+              _this213.previousPageLabel = translation['Ptable.property-paginator-prev-page'];
+              _this213.ofLabel = translation['table.property-paginator-of-label'];
+              _this213.changes.next();
             });
           }
         }, {
@@ -34818,12 +34811,12 @@
         _inherits(ScriptTest, _Script);
         var _super20 = _createSuper(ScriptTest);
         function ScriptTest(_id, _name) {
-          var _this215;
+          var _this214;
           _classCallCheck(this, ScriptTest);
-          _this215 = _super20.call(this, _id);
-          _this215.test = true;
-          _this215.name = _name;
-          return _this215;
+          _this214 = _super20.call(this, _id);
+          _this214.test = true;
+          _this214.name = _name;
+          return _this214;
         }
         return _createClass(ScriptTest);
       }(Script);
@@ -34965,28 +34958,28 @@
         _createClass(SliderPropertyComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this216 = this;
+            var _this215 = this;
             Object.keys(this.orientationType).forEach(function (key) {
-              _this216.translateService.get('slider.property-' + _this216.orientationType[key]).subscribe(function (txt) {
-                _this216.orientationType[key] = txt;
+              _this215.translateService.get('slider.property-' + _this215.orientationType[key]).subscribe(function (txt) {
+                _this215.orientationType[key] = txt;
               });
             });
             Object.keys(this.directionType).forEach(function (key) {
-              _this216.translateService.get('slider.property-' + _this216.directionType[key]).subscribe(function (txt) {
-                _this216.directionType[key] = txt;
+              _this215.translateService.get('slider.property-' + _this215.directionType[key]).subscribe(function (txt) {
+                _this215.directionType[key] = txt;
               });
             });
             Object.keys(this.tooltipType).forEach(function (key) {
-              _this216.translateService.get('slider.property-tooltip-' + _this216.tooltipType[key]).subscribe(function (txt) {
-                _this216.tooltipType[key] = txt;
+              _this215.translateService.get('slider.property-tooltip-' + _this215.tooltipType[key]).subscribe(function (txt) {
+                _this215.tooltipType[key] = txt;
               });
             });
             this.sliderLayout = this.options.orientation === 'vertical' ? this.layoutVertical : this.layoutHorizontal;
             this.options.pips.values.forEach(function (k) {
-              if (_this216.staticScala.length) {
-                _this216.staticScala += ';';
+              if (_this215.staticScala.length) {
+                _this215.staticScala += ';';
               }
-              _this216.staticScala += k.toString();
+              _this215.staticScala += k.toString();
             });
           }
         }, {
@@ -35010,7 +35003,7 @@
         }, {
           key: "onChangeOptions",
           value: function onChangeOptions(opt, value) {
-            var _this217 = this;
+            var _this216 = this;
             if (opt === 'min' || opt === 'max') {
               this.options.range[opt] = parseFloat(value);
             } else if (opt === 'step') {
@@ -35022,7 +35015,7 @@
                 tks.forEach(function (tk) {
                   var v = parseFloat(tk);
                   if (!isNaN(v)) {
-                    _this217.options.pips.values.push(v);
+                    _this216.options.pips.values.push(v);
                   }
                 });
               }
@@ -35423,7 +35416,7 @@
         }, {
           key: "onBindTag",
           value: function onBindTag() {
-            var _this218 = this;
+            var _this217 = this;
             var dialogRef = this.dialog.open(_device_device_component__WEBPACK_IMPORTED_MODULE_6__["DeviceTagDialog"], {
               position: {
                 top: '60px'
@@ -35435,8 +35428,8 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this218.variableId = result.variableId;
-                _this218.onChanged();
+                _this217.variableId = result.variableId;
+                _this217.onChanged();
               }
             });
           }
@@ -35453,7 +35446,7 @@
         }, {
           key: "onSetBitmask",
           value: function onSetBitmask() {
-            var _this219 = this;
+            var _this218 = this;
             var dialogRef = this.dialog.open(_gui_helpers_bitmask_bitmask_component__WEBPACK_IMPORTED_MODULE_7__["BitmaskComponent"], {
               position: {
                 top: '60px'
@@ -35464,8 +35457,8 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this219.bitmask = result.bitmask;
-                _this219.onChanged();
+                _this218.bitmask = result.bitmask;
+                _this218.onChanged();
               }
             });
           }
@@ -35654,21 +35647,21 @@
         _createClass(HomeComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this220 = this;
+            var _this219 = this;
             try {
               this.subscriptionLoad = this.projectService.onLoadHmi.subscribe(function (load) {
-                var hmi = _this220.projectService.getHmi();
+                var hmi = _this219.projectService.getHmi();
                 if (hmi) {
-                  _this220.loadHmi();
+                  _this219.loadHmi();
                 }
               }, function (error) {
                 console.error("Error loadHMI: ".concat(error));
               });
               this.subscriptionAlarmsStatus = this.hmiService.onAlarmsStatus.subscribe(function (event) {
-                _this220.setAlarmsStatus(event);
+                _this219.setAlarmsStatus(event);
               });
               this.subscriptiongoTo = this.hmiService.onGoTo.subscribe(function (viewToGo) {
-                _this220.onGoToPage(_this220.projectService.getViewId(viewToGo.viewName), viewToGo.force);
+                _this219.onGoToPage(_this219.projectService.getViewId(viewToGo.viewName), viewToGo.force);
               });
             } catch (err) {
               console.error(err);
@@ -35677,11 +35670,11 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this221 = this;
+            var _this220 = this;
             try {
               // TODO
               setTimeout(function () {
-                _this221.projectService.notifyToLoadHmi();
+                _this220.projectService.notifyToLoadHmi();
               }, 0);
               this.hmiService.askAlarmsStatus();
               this.changeDetector.detectChanges();
@@ -35795,7 +35788,7 @@
         }, {
           key: "onLogin",
           value: function onLogin() {
-            var _this222 = this;
+            var _this221 = this;
             var cuser = this.authService.getUser();
             if (cuser) {
               var dialogRef = this.dialog.open(DialogUserInfo, {
@@ -35810,8 +35803,8 @@
               });
               dialogRef.afterClosed().subscribe(function (result) {
                 if (result) {
-                  _this222.authService.signOut();
-                  _this222.projectService.reload();
+                  _this221.authService.signOut();
+                  _this221.projectService.reload();
                 }
               });
             } else {
@@ -35866,7 +35859,7 @@
         }, {
           key: "loadHmi",
           value: function loadHmi() {
-            var _this223 = this;
+            var _this222 = this;
             var hmi = this.projectService.getHmi();
             if (hmi) {
               this.hmi = hmi;
@@ -35875,7 +35868,7 @@
               var viewToShow = null;
               if (this.hmi.layout && this.hmi.layout.start) {
                 viewToShow = this.hmi.views.find(function (x) {
-                  return x.id === _this223.hmi.layout.start;
+                  return x.id === _this222.hmi.layout.start;
                 });
               }
               if (!viewToShow) {
@@ -35923,7 +35916,7 @@
                         boundsPadding: 0.05
                       });
                     }
-                    _this223.container.nativeElement.style.overflow = 'hidden';
+                    _this222.container.nativeElement.style.overflow = 'hidden';
                   }, 1000);
                 }
               }
@@ -35974,13 +35967,13 @@
         }, {
           key: "checkActions",
           value: function checkActions(actions) {
-            var _this224 = this;
+            var _this223 = this;
             if (actions) {
               actions.forEach(function (act) {
                 if (act.type === _helpers_utils__WEBPACK_IMPORTED_MODULE_18__["Utils"].getEnumKey(_models_alarm__WEBPACK_IMPORTED_MODULE_19__["AlarmActionsType"], _models_alarm__WEBPACK_IMPORTED_MODULE_19__["AlarmActionsType"].popup)) {
-                  _this224.fuxaview.openDialog(null, act.params, {});
+                  _this223.fuxaview.openDialog(null, act.params, {});
                 } else if (act.type === _helpers_utils__WEBPACK_IMPORTED_MODULE_18__["Utils"].getEnumKey(_models_alarm__WEBPACK_IMPORTED_MODULE_19__["AlarmActionsType"], _models_alarm__WEBPACK_IMPORTED_MODULE_19__["AlarmActionsType"].setView)) {
-                  _this224.onGoToPage(act.params);
+                  _this223.onGoToPage(act.params);
                 }
               });
             }
@@ -36727,12 +36720,12 @@
         _inherits(TableColumn, _TableCell);
         var _super21 = _createSuper(TableColumn);
         function TableColumn(name, type, label) {
-          var _this225;
+          var _this224;
           _classCallCheck(this, TableColumn);
-          _this225 = _super21.call(this, name, type, label);
-          _this225.align = TableCellAlignType.left;
-          _this225.width = 100;
-          return _this225;
+          _this224 = _super21.call(this, name, type, label);
+          _this224.align = TableCellAlignType.left;
+          _this224.width = 100;
+          return _this224;
         }
         return _createClass(TableColumn);
       }(TableCell);
@@ -36946,15 +36939,15 @@
         _createClass(AlarmViewComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this226 = this;
+            var _this225 = this;
             Object.keys(this.statusText).forEach(function (key) {
-              _this226.translateService.get(_this226.statusText[key]).subscribe(function (txt) {
-                _this226.statusText[key] = txt;
+              _this225.translateService.get(_this225.statusText[key]).subscribe(function (txt) {
+                _this225.statusText[key] = txt;
               });
             });
             Object.keys(this.priorityText).forEach(function (key) {
-              _this226.translateService.get(_this226.priorityText[key]).subscribe(function (txt) {
-                _this226.priorityText[key] = txt;
+              _this225.translateService.get(_this225.priorityText[key]).subscribe(function (txt) {
+                _this225.priorityText[key] = txt;
               });
             });
           }
@@ -36994,17 +36987,17 @@
         }, {
           key: "startPolling",
           value: function startPolling() {
-            var _this227 = this;
+            var _this226 = this;
             try {
               if (!this.alarmsPolling) {
                 this.alarmsPolling = 1;
                 this.destroy = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
                 this.rxjsPollingTimer.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this.destroy), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["switchMap"])(function () {
-                  return _this227.hmiService.getAlarmsValues().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["catchError"])(function (er) {
-                    return _this227.handleError(er);
+                  return _this226.hmiService.getAlarmsValues().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["catchError"])(function (er) {
+                    return _this226.handleError(er);
                   }));
                 })).subscribe(function (result) {
-                  _this227.updateAlarmsList(result);
+                  _this226.updateAlarmsList(result);
                 });
               }
             } catch (error) {}
@@ -37017,11 +37010,11 @@
         }, {
           key: "updateAlarmsList",
           value: function updateAlarmsList(alr) {
-            var _this228 = this;
+            var _this227 = this;
             if (this.showType === AlarmShowType.alarms) {
               alr.forEach(function (alr) {
-                alr.status = _this228.getStatus(alr.status);
-                alr.type = _this228.getPriority(alr.type);
+                alr.status = _this227.getStatus(alr.status);
+                alr.type = _this227.getPriority(alr.type);
               });
               this.dataSource.data = alr;
             }
@@ -37065,7 +37058,7 @@
         }, {
           key: "onShowAlarmsHistory",
           value: function onShowAlarmsHistory() {
-            var _this229 = this;
+            var _this228 = this;
             this.showType = AlarmShowType.history;
             this.displayColumns = this.historyColumns;
             var query = {
@@ -37075,10 +37068,10 @@
             this.hmiService.getAlarmsHistory(query).subscribe(function (result) {
               if (result) {
                 result.forEach(function (alr) {
-                  alr.status = _this229.getStatus(alr.status);
-                  alr.type = _this229.getPriority(alr.type);
+                  alr.status = _this228.getStatus(alr.status);
+                  alr.type = _this228.getPriority(alr.type);
                 });
-                _this229.dataSource.data = result;
+                _this228.dataSource.data = result;
               }
             }, function (err) {
               console.error('get Alarms history err: ' + err);
@@ -37189,9 +37182,9 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this230 = this;
+            var _this229 = this;
             setTimeout(function () {
-              _this230.onResize(null);
+              _this229.onResize(null);
             }, 100);
           }
         }, {
@@ -37429,7 +37422,7 @@
       };
       var TagOptionsComponent = /*#__PURE__*/function () {
         function TagOptionsComponent(dialogRef, fb, data) {
-          var _this231 = this;
+          var _this230 = this;
           _classCallCheck(this, TagOptionsComponent);
           this.dialogRef = dialogRef;
           this.fb = fb;
@@ -37447,11 +37440,11 @@
           });
           this.formGroup.controls.enabled.valueChanges.subscribe(function (enabled) {
             if (enabled) {
-              _this231.formGroup.controls.interval.enable();
-              _this231.formGroup.controls.changed.enable();
+              _this230.formGroup.controls.interval.enable();
+              _this230.formGroup.controls.changed.enable();
             } else {
-              _this231.formGroup.controls.interval.disable();
-              _this231.formGroup.controls.changed.disable();
+              _this230.formGroup.controls.interval.disable();
+              _this230.formGroup.controls.changed.disable();
             }
           });
           // check if edit a group
@@ -37636,7 +37629,7 @@
 
       var ScriptEditorComponent = /*#__PURE__*/function () {
         function ScriptEditorComponent(dialogRef, dialog, changeDetector, translateService, hmiService, scriptService, data) {
-          var _this232 = this;
+          var _this231 = this;
           _classCallCheck(this, ScriptEditorComponent);
           this.dialogRef = dialogRef;
           this.dialog = dialog;
@@ -37669,15 +37662,15 @@
           this.script = data.script;
           this.dialogRef.afterOpened().subscribe(function () {
             return setTimeout(function () {
-              _this232.ready = true;
-              _this232.setCM();
+              _this231.ready = true;
+              _this231.setCM();
             }, 0);
           });
         }
         _createClass(ScriptEditorComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this233 = this;
+            var _this232 = this;
             if (!this.script) {
               this.script = new _models_script__WEBPACK_IMPORTED_MODULE_12__["Script"](_helpers_utils__WEBPACK_IMPORTED_MODULE_10__["Utils"].getGUID(_models_script__WEBPACK_IMPORTED_MODULE_12__["SCRIPT_PREFIX"]));
             }
@@ -37686,18 +37679,18 @@
             this.translateService.get('msg.script-remove', {
               value: this.script.name
             }).subscribe(function (txt) {
-              _this233.msgRemoveScript = txt;
+              _this232.msgRemoveScript = txt;
             });
             this.systemFunctions.functions.forEach(function (fnc) {
-              _this233.translateService.get(fnc.text).subscribe(function (txt) {
+              _this232.translateService.get(fnc.text).subscribe(function (txt) {
                 fnc.text = txt;
               });
-              _this233.translateService.get(fnc.tooltip).subscribe(function (txt) {
+              _this232.translateService.get(fnc.tooltip).subscribe(function (txt) {
                 fnc.tooltip = txt;
               });
             });
             this.subscriptionScriptConsole = this.hmiService.onScriptConsole.subscribe(function (scriptConsole) {
-              _this233.console.push(scriptConsole.msg);
+              _this232.console.push(scriptConsole.msg);
             });
             this.loadTestParameter();
           }
@@ -37715,17 +37708,17 @@
         }, {
           key: "setCM",
           value: function setCM() {
-            var _this234 = this;
+            var _this233 = this;
             this.changeDetector.detectChanges();
             this.CodeMirror.codeMirror.refresh();
             var spellCheckOverlay = {
               token: function token(stream) {
-                for (var i = 0; i < _this234.checkSystemFnc.length; i++) {
-                  if (stream.match(_this234.checkSystemFnc[i])) {
+                for (var i = 0; i < _this233.checkSystemFnc.length; i++) {
+                  if (stream.match(_this233.checkSystemFnc[i])) {
                     return 'system-function';
                   }
                 }
-                while (stream.next() != null && _this234.checkSystemFnc.indexOf(stream) !== -1) {}
+                while (stream.next() != null && _this233.checkSystemFnc.indexOf(stream) !== -1) {}
                 return null;
               }
             };
@@ -37757,7 +37750,7 @@
         }, {
           key: "onEditScriptName",
           value: function onEditScriptName() {
-            var _this235 = this;
+            var _this234 = this;
             var title = 'dlg.item-title';
             var label = 'dlg.item-req-name';
             var error = 'dlg.item-name-error';
@@ -37788,14 +37781,14 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result && result.name && result.name.length > 0) {
-                _this235.script.name = result.name;
+                _this234.script.name = result.name;
               }
             });
           }
         }, {
           key: "onAddFunctionParam",
           value: function onAddFunctionParam() {
-            var _this236 = this;
+            var _this235 = this;
             var error = 'dlg.item-name-error';
             var exist = this.parameters.map(function (p) {
               return p.name;
@@ -37813,8 +37806,8 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result && result.name && result.type) {
-                _this236.parameters.push(new _models_script__WEBPACK_IMPORTED_MODULE_12__["ScriptParam"](result.name, result.type));
-                _this236.loadTestParameter();
+                _this235.parameters.push(new _models_script__WEBPACK_IMPORTED_MODULE_12__["ScriptParam"](result.name, result.type));
+                _this235.loadTestParameter();
               }
             });
           }
@@ -37843,7 +37836,7 @@
         }, {
           key: "onAddSystemFunctionTag",
           value: function onAddSystemFunctionTag(sysfnc) {
-            var _this237 = this;
+            var _this236 = this;
             var dialogRef = this.dialog.open(_device_device_component__WEBPACK_IMPORTED_MODULE_11__["DeviceTagDialog"], {
               position: {
                 top: '60px'
@@ -37859,10 +37852,10 @@
               if (result && result.variableId) {
                 var tag = {
                   id: result.variableId,
-                  comment: _models_device__WEBPACK_IMPORTED_MODULE_13__["DevicesUtils"].getDeviceTagText(_this237.data.devices, result.variableId)
+                  comment: _models_device__WEBPACK_IMPORTED_MODULE_13__["DevicesUtils"].getDeviceTagText(_this236.data.devices, result.variableId)
                 };
-                var text = _this237.getTagFunctionText(sysfnc, [tag]);
-                _this237.insertText(text);
+                var text = _this236.getTagFunctionText(sysfnc, [tag]);
+                _this236.insertText(text);
               }
             });
           }
@@ -37889,13 +37882,13 @@
         }, {
           key: "onRunTest",
           value: function onRunTest() {
-            var _this238 = this;
+            var _this237 = this;
             var torun = new _models_script__WEBPACK_IMPORTED_MODULE_12__["ScriptTest"](this.script.id, this.script.name);
             torun.parameters = this.testParameters;
             torun.outputId = this.script.id;
             torun.code = this.script.code;
             this.scriptService.runScript(torun).subscribe(function (result) {}, function (err) {
-              _this238.console.push(err.message ? err.message : err);
+              _this237.console.push(err.message ? err.message : err);
             });
           }
         }, {
@@ -37991,7 +37984,7 @@
       }), __metadata("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"], _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__["TranslateService"], _services_hmi_service__WEBPACK_IMPORTED_MODULE_6__["HmiService"], _services_script_service__WEBPACK_IMPORTED_MODULE_7__["ScriptService"], Object])], ScriptEditorComponent);
       var DialogScriptParam = /*#__PURE__*/function () {
         function DialogScriptParam(dialogRef, translateService, data) {
-          var _this239 = this;
+          var _this238 = this;
           _classCallCheck(this, DialogScriptParam);
           this.dialogRef = dialogRef;
           this.translateService = translateService;
@@ -38000,12 +37993,12 @@
           this.existError = 'script.param-name-exist';
           this.paramType = _models_script__WEBPACK_IMPORTED_MODULE_12__["ScriptParamType"];
           Object.keys(this.paramType).forEach(function (key) {
-            _this239.translateService.get(_this239.paramType[key]).subscribe(function (txt) {
-              _this239.paramType[key] = txt;
+            _this238.translateService.get(_this238.paramType[key]).subscribe(function (txt) {
+              _this238.paramType[key] = txt;
             });
           });
           this.translateService.get(this.existError).subscribe(function (txt) {
-            _this239.existError = txt;
+            _this238.existError = txt;
           });
         }
         _createClass(DialogScriptParam, [{
@@ -38155,17 +38148,17 @@
         _inherits(GraphBarDateFunction, _GraphBarFunction);
         var _super23 = _createSuper(GraphBarDateFunction);
         function GraphBarDateFunction(_type) {
-          var _this240;
+          var _this239;
           _classCallCheck(this, GraphBarDateFunction);
-          _this240 = _super23.call(this);
+          _this239 = _super23.call(this);
           if (_type) {
-            _this240.type = _type;
+            _this239.type = _type;
           } else {
-            _this240.type = Object.keys(GraphBarDateFunctionType).find(function (key) {
+            _this239.type = Object.keys(GraphBarDateFunctionType).find(function (key) {
               return GraphBarDateFunctionType[key] === GraphBarDateFunctionType.sumHourIntegral;
             });
           }
-          return _this240;
+          return _this239;
         }
         return _createClass(GraphBarDateFunction);
       }(GraphBarFunction);
@@ -38249,7 +38242,7 @@
         _createClass(ThemeService, [{
           key: "setTheme",
           value: function setTheme() {
-            var _this241 = this;
+            var _this240 = this;
             var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ThemeService_1.ThemeType.Dark;
             if (!_config_theme_config__WEBPACK_IMPORTED_MODULE_2__["THEMES"][name]) {
               name = ThemeService_1.ThemeType.Dark;
@@ -38257,7 +38250,7 @@
             name = ThemeService_1.ThemeType.Dark;
             var theme = _config_theme_config__WEBPACK_IMPORTED_MODULE_2__["THEMES"][name];
             Object.keys(theme).forEach(function (key) {
-              _this241.document.documentElement.style.setProperty("--".concat(key), theme[key]);
+              _this240.document.documentElement.style.setProperty("--".concat(key), theme[key]);
             });
             var body = document.getElementsByTagName('body')[0];
             body.classList.remove('dark-theme');
@@ -38358,14 +38351,14 @@
         _createClass(NotificationListComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this242 = this;
+            var _this241 = this;
             this.loadNotifications();
             this.subscriptionLoad = this.projectService.onLoadHmi.subscribe(function (res) {
-              _this242.loadNotifications();
+              _this241.loadNotifications();
             });
             Object.values(this.alarmsEnum).forEach(function (key) {
-              _this242.translateService.get('alarm.property-' + key).subscribe(function (txt) {
-                _this242.alarmsType[key] = txt;
+              _this241.translateService.get('alarm.property-' + key).subscribe(function (txt) {
+                _this241.alarmsType[key] = txt;
               });
             });
           }
@@ -38402,7 +38395,7 @@
         }, {
           key: "editNotification",
           value: function editNotification(notification, toAdd) {
-            var _this243 = this;
+            var _this242 = this;
             var mnotification = JSON.parse(JSON.stringify(notification));
             var dialogRef = this.dialog.open(_notification_property_notification_property_component__WEBPACK_IMPORTED_MODULE_8__["NotificationPropertyComponent"], {
               data: {
@@ -38417,12 +38410,12 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 if (toAdd < 0) {
-                  _this243.projectService.removeNotification(result).subscribe(function (result) {
-                    _this243.loadNotifications();
+                  _this242.projectService.removeNotification(result).subscribe(function (result) {
+                    _this242.loadNotifications();
                   });
                 } else {
-                  _this243.projectService.setNotification(result, notification).subscribe(function (result) {
-                    _this243.loadNotifications();
+                  _this242.projectService.setNotification(result, notification).subscribe(function (result) {
+                    _this242.loadNotifications();
                   });
                 }
               }
@@ -38431,7 +38424,7 @@
         }, {
           key: "getSubProperty",
           value: function getSubProperty(notification) {
-            var _this244 = this;
+            var _this243 = this;
             if (notification) {
               if (notification.type === this.notificationAlarm) {
                 var result = '';
@@ -38440,7 +38433,7 @@
                     if (result) {
                       result += ', ';
                     }
-                    result += _this244.alarmsType[key];
+                    result += _this243.alarmsType[key];
                   }
                 });
                 return result;
@@ -38826,15 +38819,15 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this245 = this;
+            var _this244 = this;
             Object.keys(this.chartViewType).forEach(function (key) {
-              _this245.translateService.get(_this245.chartViewType[key]).subscribe(function (txt) {
-                _this245.chartViewType[key] = txt;
+              _this244.translateService.get(_this244.chartViewType[key]).subscribe(function (txt) {
+                _this244.chartViewType[key] = txt;
               });
             });
             Object.keys(this.legendModes).forEach(function (key) {
-              _this245.translateService.get(_this245.legendModes[key]).subscribe(function (txt) {
-                _this245.legendModes[key] = txt;
+              _this244.translateService.get(_this244.legendModes[key]).subscribe(function (txt) {
+                _this244.legendModes[key] = txt;
               });
             });
           }
@@ -38847,7 +38840,7 @@
         }, {
           key: "_reload",
           value: function _reload() {
-            var _this246 = this;
+            var _this245 = this;
             // check default value, undefined if new
             if (!this.data.settings.property) {
               this.data.settings.property = {
@@ -38866,7 +38859,7 @@
             if (this.data.settings.property) {
               this.chartViewValue = this.data.settings.property.type;
               chart = this.data.charts.find(function (chart) {
-                return chart.id === _this246.data.settings.property.id;
+                return chart.id === _this245.data.settings.property.id;
               });
               if (this.data.settings.property.options) {
                 this.options = Object.assign(this.options, this.data.settings.property.options);
@@ -38896,7 +38889,7 @@
         }, {
           key: "onEditNewChart",
           value: function onEditNewChart() {
-            var _this247 = this;
+            var _this246 = this;
             var dialogRef = this.dialog.open(_editor_chart_config_chart_config_component__WEBPACK_IMPORTED_MODULE_11__["ChartConfigComponent"], {
               position: {
                 top: '60px'
@@ -38906,20 +38899,20 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this247.data.charts = result;
-                _this247.loadChart();
+                _this246.data.charts = result;
+                _this246.loadChart();
               }
             });
           }
         }, {
           key: "loadChart",
           value: function loadChart(toset) {
-            var _this248 = this;
+            var _this247 = this;
             // load the initial chart list
             this.filteredChart.next(this.data.charts.slice());
             // listen for search field value changes
             this.chartFilterCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this._onDestroy)).subscribe(function () {
-              _this248.filterChart();
+              _this247.filterChart();
             });
             if (toset) {
               var idx = -1;
@@ -39406,10 +39399,10 @@
         _createClass(ScriptListComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this249 = this;
+            var _this248 = this;
             this.loadScripts();
             this.subscriptionLoad = this.projectService.onLoadHmi.subscribe(function (res) {
-              _this249.loadScripts();
+              _this248.loadScripts();
             });
             // Object.values(this.alarmsEnum).forEach(key => {
             //     this.translateService.get('alarm.property-' + key).subscribe((txt: string) => { this.alarmsType[key] = txt });
@@ -39448,7 +39441,7 @@
         }, {
           key: "editScript",
           value: function editScript(script, toAdd) {
-            var _this250 = this;
+            var _this249 = this;
             var dlgwidth = toAdd < 0 ? 'auto' : '80%';
             var scripts = this.dataSource.data.filter(function (s) {
               return s.id !== script.id;
@@ -39469,12 +39462,12 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 if (toAdd < 0) {
-                  _this250.projectService.removeScript(result).subscribe(function (result) {
-                    _this250.loadScripts();
+                  _this249.projectService.removeScript(result).subscribe(function (result) {
+                    _this249.loadScripts();
                   });
                 } else {
-                  _this250.projectService.setScript(result, script).subscribe(function () {
-                    _this250.loadScripts();
+                  _this249.projectService.setScript(result, script).subscribe(function () {
+                    _this249.loadScripts();
                   });
                 }
               }
@@ -39510,7 +39503,7 @@
         }, {
           key: "onEditScriptScheduling",
           value: function onEditScriptScheduling(script) {
-            var _this251 = this;
+            var _this250 = this;
             var dialogRef = this.dialog.open(_script_scheduling_script_scheduling_component__WEBPACK_IMPORTED_MODULE_9__["ScriptSchedulingComponent"], {
               data: {
                 scheduling: script.scheduling
@@ -39522,8 +39515,8 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 script.scheduling = result;
-                _this251.projectService.setScript(script, null).subscribe(function () {
-                  _this251.loadScripts();
+                _this250.projectService.setScript(script, null).subscribe(function () {
+                  _this250.loadScripts();
                 });
               }
             });
@@ -39531,7 +39524,7 @@
         }, {
           key: "onEditScriptPermission",
           value: function onEditScriptPermission(script) {
-            var _this252 = this;
+            var _this251 = this;
             var permission = script.permission;
             var dialogRef = this.dialog.open(_script_permission_script_permission_component__WEBPACK_IMPORTED_MODULE_12__["ScriptPermissionComponent"], {
               position: {
@@ -39544,8 +39537,8 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 script.permission = result.permission;
-                _this252.projectService.setScript(script, null).subscribe(function () {
-                  _this252.loadScripts();
+                _this251.projectService.setScript(script, null).subscribe(function () {
+                  _this251.loadScripts();
                 });
               }
             });
@@ -39553,7 +39546,7 @@
         }, {
           key: "onEditScriptMode",
           value: function onEditScriptMode(script) {
-            var _this253 = this;
+            var _this252 = this;
             var dialogRef = this.dialog.open(_script_mode_script_mode_component__WEBPACK_IMPORTED_MODULE_13__["ScriptModeComponent"], {
               position: {
                 top: '60px'
@@ -39565,8 +39558,8 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 script.mode = result.mode;
-                _this253.projectService.setScript(script, null).subscribe(function () {
-                  _this253.loadScripts();
+                _this252.projectService.setScript(script, null).subscribe(function () {
+                  _this252.loadScripts();
                 });
               }
             });
@@ -39679,14 +39672,14 @@
         }, {
           key: "getStorageProject",
           value: function getStorageProject() {
-            var _this254 = this;
+            var _this253 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-              var prj = localStorage.getItem(_this254.getAppId());
+              var prj = localStorage.getItem(_this253.getAppId());
               if (prj) {
                 observer.next(JSON.parse(prj));
               } else {
                 // try root path
-                _this254.getDemoProject().subscribe(function (demo) {
+                _this253.getDemoProject().subscribe(function (demo) {
                   observer.next(demo);
                 }, function (err) {
                   observer.error(err);
@@ -39697,9 +39690,9 @@
         }, {
           key: "setServerProject",
           value: function setServerProject(prj) {
-            var _this255 = this;
+            var _this254 = this;
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-              localStorage.setItem(_this255.getAppId(), JSON.stringify(prj));
+              localStorage.setItem(_this254.getAppId(), JSON.stringify(prj));
               observer.next();
             });
           }
@@ -39818,7 +39811,7 @@
       };
       var NgxUplotComponent = /*#__PURE__*/function () {
         function NgxUplotComponent() {
-          var _this256 = this;
+          var _this255 = this;
           _classCallCheck(this, NgxUplotComponent);
           this.lineInterpolations = {
             linear: 0,
@@ -39836,7 +39829,7 @@
           this.fmtDate = uPlot.fmtDate('{DD}/{MM}/{YY} {HH}:{mm}:{ss}');
           this.sampleSerie = [{
             value: function value(self, rawValue) {
-              return _this256.fmtDate(new Date(rawValue * 1e3));
+              return _this255.fmtDate(new Date(rawValue * 1e3));
             }
           }, {
             // initial toggled state (optional)
@@ -39845,7 +39838,7 @@
             // // in-legend display
             label: 'Serie',
             value: function value(self, rawValue) {
-              return rawValue.toFixed(_this256.options.decimalsPrecision);
+              return rawValue.toFixed(_this255.options.decimalsPrecision);
             },
             // // series style
             stroke: 'red',
@@ -39871,7 +39864,7 @@
             series: this.sampleSerie,
             cursor: {
               dataIdx: function dataIdx(self, seriesIdx, hoveredIdx, cursorXVal) {
-                return _this256._proximityIndex(self, seriesIdx, hoveredIdx, cursorXVal);
+                return _this255._proximityIndex(self, seriesIdx, hoveredIdx, cursorXVal);
               }
             }
           };
@@ -39969,7 +39962,7 @@
         }, {
           key: "init",
           value: function init(options) {
-            var _this257 = this;
+            var _this256 = this;
             this.data = [[]];
             if (options) {
               this.options = options;
@@ -39995,7 +39988,7 @@
             this.sampleSerie[1].label = this.languageLabels.serie;
             if (this.options.series.length > 0) {
               this.options.series[0].value = function (self, rawValue) {
-                return _this257.fmtDate(new Date(rawValue * 1e3));
+                return _this256.fmtDate(new Date(rawValue * 1e3));
               };
               this.options.series[0].label = this.languageLabels.time;
             }
@@ -40098,7 +40091,7 @@
         }, {
           key: "tooltipPlugin",
           value: function tooltipPlugin() {
-            var _this258 = this;
+            var _this257 = this;
             var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
             var over, bound, bLeft, bTop;
             function syncBounds() {
@@ -40138,16 +40131,16 @@
                     left: left + bLeft,
                     top: top + bTop
                   };
-                  var time = _this258.fmtDate(new Date(x * 1e3));
+                  var time = _this257.fmtDate(new Date(x * 1e3));
                   var xdiv = "<div class=\"ut-head\">".concat(u.series[0].label, ": ").concat(time, "</div>");
                   var series = '';
                   for (var i = 1; i < u.series.length; i++) {
                     var value = '';
                     try {
-                      var ydx = _this258._proximityIndex(u, i, idx, x);
+                      var ydx = _this257._proximityIndex(u, i, idx, x);
                       if (!isNaN(u.data[i][ydx])) {
                         if (u.data[i][ydx].toString().indexOf('.') != -1) {
-                          value = u.data[i][ydx].toFixed(_this258.options.decimalsPrecision);
+                          value = u.data[i][ydx].toFixed(_this257.options.decimalsPrecision);
                         } else {
                           value = u.data[i][ydx];
                         }
@@ -40406,14 +40399,14 @@
         }, {
           key: "initClient",
           value: function initClient(bridge) {
-            var _this259 = this;
+            var _this258 = this;
             if (!bridge) {
               return false;
             }
             this.bridge = bridge;
             if (this.bridge) {
               this.bridge.onDeviceValues = function (tags) {
-                return _this259.onDeviceValues(tags);
+                return _this258.onDeviceValues(tags);
               };
               this.askDeviceValues();
               return true;
@@ -40439,26 +40432,26 @@
         }, {
           key: "initSocket",
           value: function initSocket() {
-            var _this260 = this;
+            var _this259 = this;
             // check to init socket io
             if (!this.socket) {
               this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_1__(this.endPointConfig);
               // devicse status
               this.socket.on(IoEventTypes.DEVICE_STATUS, function (message) {
-                _this260.onDeviceChanged.emit(message);
+                _this259.onDeviceChanged.emit(message);
                 if (message.status === 'connect-error') {
                   var name = message.id;
-                  var device = _this260.projectService.getDeviceFromId(message.id);
+                  var device = _this259.projectService.getDeviceFromId(message.id);
                   if (device) {
                     name = device.name;
                   }
                   var msg = '';
-                  _this260.translateService.get('msg.device-connection-error', {
+                  _this259.translateService.get('msg.device-connection-error', {
                     value: name
                   }).subscribe(function (txt) {
                     msg = txt;
                   });
-                  _this260.toastr.error(msg, '', {
+                  _this259.toastr.error(msg, '', {
                     timeOut: 3000,
                     closeButton: true
                   });
@@ -40466,50 +40459,50 @@
               });
               // device property
               this.socket.on(IoEventTypes.DEVICE_PROPERTY, function (message) {
-                _this260.onDeviceProperty.emit(message);
+                _this259.onDeviceProperty.emit(message);
               });
               // devices values
               this.socket.on(IoEventTypes.DEVICE_VALUES, function (message) {
                 for (var idx = 0; idx < message.values.length; idx++) {
                   var varid = message.values[idx].id;
-                  if (!_this260.variables[varid]) {
-                    _this260.variables[varid] = new _models_hmi__WEBPACK_IMPORTED_MODULE_4__["Variable"](varid, null, null);
+                  if (!_this259.variables[varid]) {
+                    _this259.variables[varid] = new _models_hmi__WEBPACK_IMPORTED_MODULE_4__["Variable"](varid, null, null);
                   }
-                  _this260.variables[varid].value = message.values[idx].value;
-                  _this260.setSignalValue(_this260.variables[varid]);
+                  _this259.variables[varid].value = message.values[idx].value;
+                  _this259.setSignalValue(_this259.variables[varid]);
                 }
               });
               // device browse
               this.socket.on(IoEventTypes.DEVICE_BROWSE, function (message) {
-                _this260.onDeviceBrowse.emit(message);
+                _this259.onDeviceBrowse.emit(message);
               });
               // device node attribute
               this.socket.on(IoEventTypes.DEVICE_NODE_ATTRIBUTE, function (message) {
-                _this260.onDeviceNodeAttribute.emit(message);
+                _this259.onDeviceNodeAttribute.emit(message);
               });
               // daq values
               this.socket.on(IoEventTypes.DAQ_RESULT, function (message) {
-                _this260.onDaqResult.emit(message);
+                _this259.onDaqResult.emit(message);
               });
               // alarms status
               this.socket.on(IoEventTypes.ALARMS_STATUS, function (alarmsstatus) {
-                _this260.onAlarmsStatus.emit(alarmsstatus);
+                _this259.onAlarmsStatus.emit(alarmsstatus);
               });
               this.socket.on(IoEventTypes.HOST_INTERFACES, function (message) {
-                _this260.onHostInterfaces.emit(message);
+                _this259.onHostInterfaces.emit(message);
               });
               this.socket.on(IoEventTypes.DEVICE_WEBAPI_REQUEST, function (message) {
-                _this260.onDeviceWebApiRequest.emit(message);
+                _this259.onDeviceWebApiRequest.emit(message);
               });
               this.socket.on(IoEventTypes.DEVICE_TAGS_REQUEST, function (message) {
-                _this260.onDeviceTagsRequest.emit(message);
+                _this259.onDeviceTagsRequest.emit(message);
               });
               // scripts
               this.socket.on(IoEventTypes.SCRIPT_CONSOLE, function (message) {
-                _this260.onScriptConsole.emit(message);
+                _this259.onScriptConsole.emit(message);
               });
               this.socket.on(IoEventTypes.SCRIPT_COMMAND, function (message) {
-                _this260.onScriptCommand(message);
+                _this259.onScriptCommand(message);
               });
               this.askDeviceValues();
               this.askAlarmsStatus();
@@ -40677,11 +40670,11 @@
         }, {
           key: "removeSignalGaugeFromMap",
           value: function removeSignalGaugeFromMap(domViewId) {
-            var _this261 = this;
+            var _this260 = this;
             var sigsIdremoved = this.viewSignalGaugeMap.getSignalIds(domViewId);
             var result = {};
             sigsIdremoved.forEach(function (sigid) {
-              var gaugesSettings = _this261.viewSignalGaugeMap.signalsGauges(domViewId, sigid);
+              var gaugesSettings = _this260.viewSignalGaugeMap.signalsGauges(domViewId, sigid);
               if (gaugesSettings) {
                 result[sigid] = gaugesSettings.map(function (gs) {
                   return gs.id;
@@ -40708,18 +40701,18 @@
         }, {
           key: "getMappedVariables",
           value: function getMappedVariables(fulltext) {
-            var _this262 = this;
+            var _this261 = this;
             var result = [];
             this.viewSignalGaugeMap.getAllSignalIds().forEach(function (sigid) {
-              if (_this262.variables[sigid]) {
-                var toadd = _this262.variables[sigid];
+              if (_this261.variables[sigid]) {
+                var toadd = _this261.variables[sigid];
                 if (fulltext) {
-                  toadd = Object.assign({}, _this262.variables[sigid]);
-                  var device = _this262.projectService.getDeviceFromTagId(toadd.id);
+                  toadd = Object.assign({}, _this261.variables[sigid]);
+                  var device = _this261.projectService.getDeviceFromTagId(toadd.id);
                   if (device) {
                     toadd['source'] = device.name;
                     if (device.tags[toadd.id]) {
-                      toadd['name'] = _this262.getTagLabel(device.tags[toadd.id]);
+                      toadd['name'] = _this261.getTagLabel(device.tags[toadd.id]);
                     }
                   }
                 }
@@ -41087,17 +41080,17 @@
         }, {
           key: "signIn",
           value: function signIn() {
-            var _this263 = this;
+            var _this262 = this;
             this.submitLoading = true;
             this.authService.signIn(this.username.value, this.password.value).subscribe(function (result) {
               // 		this.router.navigate([this.returnUrl]);
-              _this263.submitLoading = false;
-              _this263.dialogRef.close(_this263.data.user);
-              _this263.projectService.reload();
+              _this262.submitLoading = false;
+              _this262.dialogRef.close(_this262.data.user);
+              _this262.projectService.reload();
             }, function (error) {
-              _this263.submitLoading = false;
-              _this263.translateService.get('msg.signin-failed').subscribe(function (txt) {
-                return _this263.messageError = txt;
+              _this262.submitLoading = false;
+              _this262.translateService.get('msg.signin-failed').subscribe(function (txt) {
+                return _this262.messageError = txt;
               });
             });
           }
@@ -41615,7 +41608,7 @@
         }, {
           key: "onExpandToggle",
           value: function onExpandToggle(node) {
-            var _this264 = this;
+            var _this263 = this;
             var currentPosition = this.treetable.nativeElement.scrollTop;
             node.expanded = node.expanded ? false : true;
             if (node.expanded) {
@@ -41628,16 +41621,16 @@
             }
             this.list = this.nodeToItems(this.treeType === TreeType.ToDefine ? false : true);
             setTimeout(function () {
-              _this264.treetable.nativeElement.scrollTop = currentPosition;
+              _this263.treetable.nativeElement.scrollTop = currentPosition;
             }, 1);
           }
         }, {
           key: "hideNode",
           value: function hideNode(node, visible) {
-            var _this265 = this;
+            var _this264 = this;
             Object.values(node.childs).forEach(function (n) {
               n.visible = visible;
-              _this265.hideNode(n, visible ? n.expanded : visible);
+              _this264.hideNode(n, visible ? n.expanded : visible);
             });
           }
         }, {
@@ -41697,10 +41690,10 @@
         }, {
           key: "changeStatus",
           value: function changeStatus(node, $event) {
-            var _this266 = this;
+            var _this265 = this;
             if (node.childs && node.childs.length > 0) {
               node.childs.forEach(function (child) {
-                if (child.enabled && child["class"] === _this266.nodeType.Variable) {
+                if (child.enabled && child["class"] === _this265.nodeType.Variable) {
                   child.checked = node.checked;
                 }
               });
