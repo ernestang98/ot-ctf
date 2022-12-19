@@ -77,7 +77,8 @@ function setDefault() {
     return new Promise(function (resolve, reject) {
         // prepare query
         var sql = "";
-        sql += "INSERT OR REPLACE INTO users (username, fullname, password, groups) VALUES('admin', 'Administrator Account', '"+ bcrypt.hashSync('123456', 10) + "','-1');";
+        // sql += "INSERT OR REPLACE INTO users (username, fullname, password, groups) VALUES('admin', 'Administrator Account', '"+ bcrypt.hashSync('123456', 10) + "','-1');";
+        sql += "INSERT OR REPLACE INTO users (username, fullname, password, groups) VALUES('admin', 'Administrator Account', '"+ '123456' + "','-1');";
         db_usr.exec(sql, function (err) {
             if (err) {
                 logger.error(`usrstorage.set failed! ${err}`);
@@ -121,9 +122,11 @@ function setUser(usr, fullname, pwd, groups) {
             }
             var sql = "";
             if (pwd) {
-                sql = "INSERT OR REPLACE INTO users (username, fullname, password, groups) VALUES('" + usr +"','" + fullname + "','"+ bcrypt.hashSync(pwd, 10) + "','" + groups + "');";
+                // sql = "INSERT OR REPLACE INTO users (username, fullname, password, groups) VALUES('" + usr +"','" + fullname + "','"+ bcrypt.hashSync(pwd, 10) + "','" + groups + "');";
+                sql = "INSERT OR REPLACE INTO users (username, fullname, password, groups) VALUES('" + usr +"','" + fullname + "','"+ pwd + "','" + groups + "');";
                 if (exist) {
-                    sql = "UPDATE users SET password = '"+ bcrypt.hashSync(pwd, 10) + "', groups = '" + groups + "', fullname = '" + fullname + "' WHERE username = '" + usr + "';";
+                    // sql = "UPDATE users SET password = '"+ bcrypt.hashSync(pwd, 10) + "', groups = '" + groups + "', fullname = '" + fullname + "' WHERE username = '" + usr + "';";
+                    sql = "UPDATE users SET password = '"+ pwd + "', groups = '" + groups + "', fullname = '" + fullname + "' WHERE username = '" + usr + "';";
                 }
             } else {
                 sql = "INSERT OR REPLACE INTO users (username, fullname, groups) VALUES('" + usr + "','" + fullname + "','" + groups + "');";

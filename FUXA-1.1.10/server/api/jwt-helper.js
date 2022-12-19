@@ -6,6 +6,20 @@ const cookieParser = require('cookie-parser')
 const crypto = require('crypto');
 
 var secretCode = 'frangoteam751'; //public key
+var pub_key = `-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA3/HHxFJYjapDb4zb2Jo8
+oaWOaBRd4zk/l1ZjOpwAumUhKS/heClLk6DdY6ZPPk6CfmHpd1MiodA6doJi/PWZ
+3jL54oZtsK4RrF+FLGYmGDGRjiV47wR0n5gGWV5wKfsk+dTxbAAI6/T7SG9RCID9
+ScH7PdqBJJopxhBZHIAoRWyWbvbnNCB+iFh8E9k0XyYJ9VUWcsQmGjToTa/GT1qR
+AWA5uP9kD5JfFXY6Infj/L/WHVWbLCdtxcK3BS1X06sRauG3rFJx9LZos+TuNMGr
+T/Dt/PRCJhTNzSqQSyg0gGf8g56e2nLWMyaDhdC/h6jukRAifH2E762RUMLsV4mD
+HVQE0r/ceUSyPanYQ71egdv1eVy8aamZ/4v0IeXVESYwOvEv1hBTcOhHjadUEzDs
+KKpKg7/hGSCo+/SVJBHSrAJNm7mnzM37pzsVE5iekU66MGROFAwUrQazrYoCNgXa
+NkIA8ElE0rfNoCRitzsrIHCEUw8cE9E2IBIQSgihvnCboe4dDB2dm3W6uknl3QFz
+gUWZl8PbMVxzMk/xVa/zZJ9XAt1pBEV2ijZhewPyAxdNv/xJqLVJzziAyiUEa8rM
+nw50nFjadQDnQJxTJc4YV9bZxNekmH5ug0hcFiLp5KTSizKyw0FkoETGVG3J3lLA
+SmSBmrgGi+Wo1FbnLRQbPGUCAwEAAQ==
+-----END PUBLIC KEY-----`; //public key
 var tokenExpiresIn = 60 * 15;   // 15 minutes
 const adminGroups = [-1, 255];
 
@@ -25,16 +39,14 @@ function init(_secretCode, _tokenExpires) {
 function getTokenExpiresIn() {
     return tokenExpiresIn;
 }
-console.log("top")
-process.env.authentication_vulnerability_difficulty = 1 
-console.log(process.env.authentication_vulnerability_difficulty)
+process.env.authentication_vulnerability_difficulty = 2 
 if (process.env.authentication_vulnerability_difficulty == 1) {
     console.log("1")
     //THIS VERSION NEED TO COMPROMISE ONLY JWT
     function verifyToken (req, res, next) {
         let token = req.headers['x-access-token'];
         if (token) {
-            jwt.verify(token, secretCode, (err, decoded) => {
+            jwt.verify(token, pub_key, (err, decoded) => {
                 if (err) {
                     req.userId = null;
                     req.userGroups = null;
@@ -77,10 +89,11 @@ if (process.env.authentication_vulnerability_difficulty == 1) {
 } else if (process.env.authentication_vulnerability_difficulty == 2) {
     console.log("2")
     // THIS VERSION NEED TO COMPROMISE BOTH JWT AND SESSION_COOKIE
+    
     function verifyToken (req, res, next) {
         let token = req.headers['x-access-token'];
         if (token) {
-            jwt.verify(token, secretCode, (err, decoded) => {
+            jwt.verify(token, pub_key, (err, decoded) => {
                 if (err) {
                     req.userId = null;
                     req.userGroups = null;
@@ -94,15 +107,17 @@ if (process.env.authentication_vulnerability_difficulty == 1) {
                     //     message: 'Fail to Authentication. Error -> ' + err
                     // });
                 } else {
+                    const req_grps = parseInt(req.cookies.user_privileges)
+                    // console.log(req_grps)
                     req.userId = decoded.id;
                     req.userGroups = decoded.groups;
                     if (req.headers['x-auth-user']) {
                         let user = JSON.parse(req.headers['x-auth-user']);
-                        if (user && user.groups != req.userGroups) {
+                        if (user && ((user.groups != req.userGroups) || (user.groups != req_grps))) {
                             res.status(403).json({ error: "unauthorized_error", message: "User Profile Corrupted!" });
                         }
                     }
-
+                    // console.log (req.cookies.session_id)
                     const session_id = req.cookies.session_id
                     if (!session_id || session_id === undefined) {
                         res.status(403).json({ error: "unauthorized_error", message: "Forbidden!" });
@@ -204,7 +219,7 @@ if (process.env.authentication_vulnerability_difficulty == 1) {
     module.exports = {
         init: init,
         verifyToken: verifyToken,
-        get secretCode() { return secretCode },
+        get secretCode() { return pub_key },
         get tokenExpiresIn() { return tokenExpiresIn },
         adminGroups: adminGroups
     };
