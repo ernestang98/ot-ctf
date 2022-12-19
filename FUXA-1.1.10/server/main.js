@@ -114,12 +114,6 @@ try {
     process.exit();
 }
 
-if (settings.authentication_vulnerability_difficulty !== undefined) {
-    process.env.authentication_vulnerability_difficulty = settings.authentication_vulnerability_difficulty
-} else {
-    process.env.authentication_vulnerability_difficulty = 0
-}
-
 try {
     var userSettingsFile = path.join(workDir, 'mysettings.json');
     settings.userSettingsFile = userSettingsFile;

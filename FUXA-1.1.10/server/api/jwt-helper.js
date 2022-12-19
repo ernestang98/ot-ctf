@@ -25,8 +25,11 @@ function init(_secretCode, _tokenExpires) {
 function getTokenExpiresIn() {
     return tokenExpiresIn;
 }
-
-if (process.env.authentication_vulnerability_difficulty === 1) {
+console.log("top")
+process.env.authentication_vulnerability_difficulty = 1 
+console.log(process.env.authentication_vulnerability_difficulty)
+if (process.env.authentication_vulnerability_difficulty == 1) {
+    console.log("1")
     //THIS VERSION NEED TO COMPROMISE ONLY JWT
     function verifyToken (req, res, next) {
         let token = req.headers['x-access-token'];
@@ -50,6 +53,7 @@ if (process.env.authentication_vulnerability_difficulty === 1) {
                     if (req.headers['x-auth-user']) {
                         let user = JSON.parse(req.headers['x-auth-user']);
                         if (user && user.groups != req.userGroups) {
+                            console.log("hello")
                             res.status(403).json({ error: "unauthorized_error", message: "User Profile Corrupted!" });
                         }
                     }
@@ -70,7 +74,8 @@ if (process.env.authentication_vulnerability_difficulty === 1) {
         get tokenExpiresIn() { return tokenExpiresIn },
         adminGroups: adminGroups
     };
-} else if (process.env.authentication_vulnerability_difficulty === 2) {
+} else if (process.env.authentication_vulnerability_difficulty == 2) {
+    console.log("2")
     // THIS VERSION NEED TO COMPROMISE BOTH JWT AND SESSION_COOKIE
     function verifyToken (req, res, next) {
         let token = req.headers['x-access-token'];
@@ -145,6 +150,7 @@ if (process.env.authentication_vulnerability_difficulty === 1) {
         adminGroups: adminGroups
     };
 } else {
+    console.log("3")
     // THIS VERSION NEED TO COMPROMISE ONLY SESSION COOKIE
     function verifyToken (req, res, next) {
         let req_token = req.cookies.session_id

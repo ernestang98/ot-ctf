@@ -63,6 +63,6 @@ module.exports = {
     // Enable GPIO in Raspberry
     // To enable only by Raspberry Host
 
-    authentication_vulnerability_difficulty: 0
+    authentication_vulnerability_difficulty: 1
     
 }
