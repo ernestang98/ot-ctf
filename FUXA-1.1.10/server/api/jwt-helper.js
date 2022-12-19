@@ -39,7 +39,7 @@ function init(_secretCode, _tokenExpires) {
 function getTokenExpiresIn() {
     return tokenExpiresIn;
 }
-process.env.authentication_vulnerability_difficulty = 2 
+process.env.authentication_vulnerability_difficulty = 0
 if (process.env.authentication_vulnerability_difficulty == 1) {
     console.log("1")
     //THIS VERSION NEED TO COMPROMISE ONLY JWT
