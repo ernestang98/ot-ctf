@@ -136,6 +136,7 @@ function mergeUserSettings(settings) {
     }
 }
 
+// FOR JWT & JWT+SESSION COOKIE 
 function verifyGroups(req) {
     return (runtime.settings && runtime.settings.secureEnabled) ? ((req.tokenExpired) ? 0 : req.userGroups) : authJwt.adminGroups[0];
 }

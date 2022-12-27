@@ -6,6 +6,8 @@ import { User, UserGroups } from '../_models/user';
 import { environment } from '../../environments/environment';
 import { EndPointApi } from '../_helpers/endpointapi';
 
+const COOKIE_SESSION_ID = "session_id"
+
 @Injectable()
 export class AuthService {
 
@@ -42,6 +44,15 @@ export class AuthService {
 
 	signOut() {
 		this.removeUser();
+		if (environment.serverEnabled) {
+			let header = new HttpHeaders({ 'Content-Type': 'application/json' });
+			this.http.post(this.endPointConfig + '/api/signout', { }).subscribe((result: any) => {
+				console.log(result)
+			}, err => {
+				console.error(err);
+			});
+		} else {
+		}
 	}
 
 	getUser(): User {

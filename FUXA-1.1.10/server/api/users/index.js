@@ -28,14 +28,16 @@ module.exports = {
          * GET Users
          * Take from users storage and reply 
          */
-        usersApp.get("/api/users", secureFnc, function(req, res) {
+        usersApp.get("/api/users", function(req, res) {
             var groups = checkGroupsFnc(req);
             if (res.statusCode === 403) {
                 runtime.logger.error("api get users: Tocken Expired");
-            } else if (authJwt.adminGroups.indexOf(groups) === -1 ) {
-                res.status(401).json({error:"unauthorized_error", message: "Unauthorized!"});
-                runtime.logger.error("api get users: Unauthorized!");
-            } else {
+            }
+            // else if (authJwt.adminGroups.indexOf(groups) === -1 ) {
+            //     res.status(401).json({error:"unauthorized_error", message: "Unauthorized!"});
+            //     runtime.logger.error("api get users: Unauthorized!");
+            // } 
+            else {
                 runtime.users.getUsers(req.query).then(result => {
                     // res.header("Access-Control-Allow-Origin", "*");
                     // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

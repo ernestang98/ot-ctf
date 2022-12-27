@@ -15,7 +15,9 @@ var events = require("./runtime/events").create();
 const FUXA = require('./fuxa.js');
 
 const express = require('express');
+const cookieParser = require('cookie-parser')
 const app = express();
+app.use(cookieParser())
 
 var server;
 var settingsFile;
@@ -111,7 +113,7 @@ try {
     }
     process.exit();
 }
-// Read user settings
+
 try {
     var userSettingsFile = path.join(workDir, 'mysettings.json');
     settings.userSettingsFile = userSettingsFile;
@@ -254,6 +256,7 @@ app.use('/users', express.static(settings.httpStatic));
 app.use('/view', express.static(settings.httpStatic));
 app.use('/' + settings.httpUploadFileStatic, express.static(settings.uploadFileDir));
 app.use('/_images', express.static(settings.imagesFileDir));
+app.use(express.static("public"))
 
 var accessLogStream = fs.createWriteStream(settings.logDir + '/api.log', {flags: 'a'});
 app.use(morgan('combined', { stream: accessLogStream }));
