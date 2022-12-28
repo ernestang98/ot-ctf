@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
 const crypto = require('crypto');
 
-var secretCode = 'frangoteam751'; //public key
 var pub_key = `-----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA3/HHxFJYjapDb4zb2Jo8
 oaWOaBRd4zk/l1ZjOpwAumUhKS/heClLk6DdY6ZPPk6CfmHpd1MiodA6doJi/PWZ
