@@ -56,6 +56,6 @@ Based off the open-sourced project, FUXA.
 
 3. Man in the Middle 
 
-   - OPCUA Communications does not use SSL to encrypt traffic
+   - OPCUA communications does not use SSL to encrypt traffic
 
-   - Perform a MiTM attack using wireshark and obtain the relevant information to attack the water plant (e.g. DoS, manipulating the server)
+   - Use wireshark and obtain the relevant information to attack the water plant (e.g. DoS, manipulating the server)
