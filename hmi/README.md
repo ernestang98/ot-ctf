@@ -1,6 +1,6 @@
 # Vulnerable Human Machine Interface
 
-Based off the open-sourced project, FUXA.
+Forked from open-sourced project, FUXA.
 
 ### Vulnerabilities:
 
