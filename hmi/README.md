@@ -10,7 +10,7 @@ Forked from open-sourced project, FUXA.
 
       - Edited the query user API to disable need for authentication to view user data  
 
-      - Edited the signin user API to disable need for authentication to perform SQL injection to leak user data
+      - Edited the signin user API to introduce SQL injection to leak user data
 
 2. Broken Authenentication
 
