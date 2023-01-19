@@ -12,3 +12,11 @@ Purpose of this project is to provide a training facility to educate red team on
 
 3. Physical mini water plant set up
 
+### References
+
+1. [OT Jargons - HMI, SCADA, PLC, DCS](http://dcs-news.com/plc-dcs-scada-hmi-differences)
+
+2. [OT vs IT Protocols](https://www.rtautomation.com/rtas-blog/the-it-ot-network-divide/)
+
+3. [OPCUA - Connect between OT & IT](https://opcconnect.opcfoundation.org/2021/12/it-ot-convergence-opc-ua-more-than-just-another-protocol/)
+
