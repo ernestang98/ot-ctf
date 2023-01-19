@@ -8,7 +8,7 @@ Purpose of this project is to provide a training facility to educate red team on
 
 2. Open-sourced [OPCUA Client](https://github.com/FreeOpcUa/opcua-client-gui) for visualising data read by sensors of the RPI
 
-2. RPI functioning as OPCUA server, reading data from sensors (GPIO) and controlling water plant (GPIO)
+2. RPI functioning acts as a PLC and an OPCUA server, reading data from sensors (GPIO) and controlling water plant (GPIO) while relaying the information to OPCUA Client and FUXA HMI
 
 3. Physical mini water plant set up
 
