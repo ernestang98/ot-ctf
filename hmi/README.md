@@ -2,7 +2,7 @@
 
 Forked from open-sourced project, FUXA.
 
-### Vulnerabilities:
+### Vulnerabilities created:
 
 1. Sensitive Data Leakage
 
@@ -59,3 +59,9 @@ Forked from open-sourced project, FUXA.
    - OPCUA communications does not use SSL to encrypt traffic
 
    - Use wireshark and obtain the relevant information to attack the water plant (e.g. DoS, manipulating the server)
+
+### Vulnerabilities found by community
+
+1. [Unaunthentic Directory Traversal - patched](https://huntr.dev/bounties/fc578b92-642c-4dfe-91cc-99f7a2b4c4ef/)
+
+2. [SSRF Information Leak - Seemingly unpatched](https://www.youtube.com/watch?v=JE1Kcq3iJpc&ab_channel=h3v0x)
