@@ -60,7 +60,7 @@ Forked from open-sourced project, FUXA.
 
    - Use wireshark and obtain the relevant information to attack the water plant (e.g. DoS, manipulating the server)
 
-### Vulnerabilities found by community
+### Vulnerabilities already found:
 
 1. [Unaunthentic Directory Traversal - patched](https://huntr.dev/bounties/fc578b92-642c-4dfe-91cc-99f7a2b4c4ef/)
 
