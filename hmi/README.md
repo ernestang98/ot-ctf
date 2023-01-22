@@ -64,4 +64,4 @@ Forked from open-sourced project, FUXA.
 
 1. [Unaunthentic Directory Traversal - patched](https://huntr.dev/bounties/fc578b92-642c-4dfe-91cc-99f7a2b4c4ef/)
 
-2. [SSRF Information Leak - Seemingly unpatched](https://www.youtube.com/watch?v=JE1Kcq3iJpc&ab_channel=h3v0x)
+2. [SSRF Information Leak - unpatched](https://www.youtube.com/watch?v=JE1Kcq3iJpc&ab_channel=h3v0x)
